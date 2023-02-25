@@ -9,19 +9,17 @@ import (
 )
 
 //export SetOsStore
-func SetOsStore() {
-	const keyName string = "keyring"
-
+func SetOsStore(serviceName *C.char, keyName *C.char, data *C.char) {
 	ring, _ := keyring.Open(keyring.Config{
-		ServiceName: "archwayhq",
+		ServiceName: C.GoString(serviceName),
 	})
 
 	_ = ring.Set(keyring.Item{
-		Key:  keyName,
-		Data: []byte("123456789"),
+		Key:  C.GoString(keyName),
+		Data: []byte(C.GoString(data)),
 	})
 
-	i, _ := ring.Get(keyName)
+	i, _ := ring.Get(C.GoString(keyName))
 
 	fmt.Printf("%s", i.Data)
 }
