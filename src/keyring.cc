@@ -50,9 +50,9 @@ Napi::String getOsStore(const Napi::CallbackInfo& info) {
 Napi::String setFileStore(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
 
-  std::string serviceNameArg = info[0].As<Napi::String>().ToString();
-  char *serviceName = new char[serviceNameArg.length() + 1];
-  strcpy(serviceName, serviceNameArg.c_str());
+  std::string fileSaveDirArg = info[0].As<Napi::String>().ToString();
+  char *fileSaveDir = new char[fileSaveDirArg.length() + 1];
+  strcpy(fileSaveDir, fileSaveDirArg.c_str());
   
   std::string fileNameArg = info[1].As<Napi::String>().ToString();
   char *fileName = new char[fileNameArg.length() + 1];
@@ -62,9 +62,9 @@ Napi::String setFileStore(const Napi::CallbackInfo& info) {
   char *data = new char[dataArg.length() + 1];
   strcpy(data, dataArg.c_str());
 
-  Napi::String result = Napi::String::New(env, SetFileStore(fileName, data));
+  Napi::String result = Napi::String::New(env, SetFileStore(fileSaveDir, fileName, data));
 
-  delete [] serviceName;
+  delete [] fileSaveDir;
   delete [] fileName;
   delete [] data;
   return result;

@@ -4,10 +4,6 @@ package main
 import "C"
 
 import (
-	"os"
-
-	"path"
-
 	"unsafe"
 
 	"github.com/99designs/keyring"
@@ -39,15 +35,17 @@ func GetOsStore(serviceName *C.char, keyName *C.char) *C.char {
 	return returnStr
 }
 
+// note: ~/ is root of user dir
+//
 //export SetFileStore
-func SetFileStore(fileName *C.char, data *C.char) *C.char {
-	currentDir, _ := os.Getwd()
-	path.Join(currentDir, "/testfile.txt")
+func SetFileStore(fileSaveDir *C.char, fileName *C.char, data *C.char) *C.char {
+	saveDir := C.GoString(fileSaveDir)
+	// saveDir, _ := os.Getwd()
 
 	ring, openErr := keyring.Open(keyring.Config{
 		AllowedBackends:  []keyring.BackendType{"file"},
 		FilePasswordFunc: keyring.FixedStringPrompt("Please select a password"),
-		FileDir:          currentDir,
+		FileDir:          saveDir,
 	})
 	if openErr != nil {
 		openErrStr := string(openErr.Error())

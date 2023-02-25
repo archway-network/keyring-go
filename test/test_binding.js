@@ -22,16 +22,17 @@ function testGetOsStore() {
 }
 
 function testSetFileStore() {    
+    const fileSaveDir = "~/";
     const fileNameFile = "file-keyring1";
     const dataForFile = "hello world file 1";
 
-    const result = setFileStore(serviceName, fileNameFile, dataForFile);
+    const result = setFileStore(fileSaveDir, fileNameFile, dataForFile);
     console.log("testSetFileStore result", result);
-    //assert.strictEqual(result, success, "Unexpected value returned");
+    assert.strictEqual(result, "", "Unexpected value returned");
 }
 
-// assert.doesNotThrow(testSetOsStore, undefined, "testSetOsStore threw an expection");
-// assert.doesNotThrow(testGetOsStore, undefined, "testGetOsStore threw an expection");
+assert.doesNotThrow(testSetOsStore, undefined, "testSetOsStore threw an expection");
+assert.doesNotThrow(testGetOsStore, undefined, "testGetOsStore threw an expection");
 assert.doesNotThrow(testSetFileStore, undefined, "testSetFileStore threw an expection");
 
 console.log("Tests passed- everything looks OK!");
