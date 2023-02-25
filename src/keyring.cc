@@ -3,15 +3,15 @@
 
 using namespace Napi;
 
-Napi::String Method(const Napi::CallbackInfo& info) {
+Napi::String setOsStore(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
-  Get(); // my function call
+  SetOsStore(); // my function call
   return Napi::String::New(env, "world");
 }
 
 Napi::Object Init(Napi::Env env, Napi::Object exports) {
-  exports.Set(Napi::String::New(env, "HelloWorld"),
-              Napi::Function::New(env, Method));
+  exports.Set(Napi::String::New(env, "setOsStore"),
+              Napi::Function::New(env, setOsStore));
   return exports;
 }
 

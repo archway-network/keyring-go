@@ -1,14 +1,14 @@
-const HelloWorld = require("../lib/binding.js");
+const setOsStore = require("../lib/binding.js");
 const assert = require("assert");
 
-assert(HelloWorld, "The expected function is undefined");
+assert(setOsStore, "The expected function is undefined");
 
-function testBasic()
+function testSetOsStore()
 {
-    const result =  HelloWorld("hello");
+    const result =  setOsStore("hello");
     assert.strictEqual(result, "world", "Unexpected value returned");
 }
 
-assert.doesNotThrow(testBasic, undefined, "testBasic threw an expection");
+assert.doesNotThrow(testSetOsStore, undefined, "testSetOsStore threw an expection");
 
 console.log("Tests passed- everything looks OK!");

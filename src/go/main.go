@@ -8,8 +8,8 @@ import (
 	"github.com/99designs/keyring"
 )
 
-//export Get
-func Get() {
+//export SetOsStore
+func SetOsStore() {
 	const keyName string = "keyring"
 
 	ring, _ := keyring.Open(keyring.Config{
