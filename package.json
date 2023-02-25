@@ -1,0 +1,20 @@
+{
+  "name": "@archwayhq/keyring-go",
+  "main": "lib/binding.js",
+  "dependencies": {
+    "node-addon-api": "^1.1.0"
+  },
+  "scripts": {
+    "build": "node-gyp configure build",
+    "test": "node --napi-modules ./test/test_binding.js",
+    "vitest": "vitest --napi-modules ./test/vitest_binding.js"
+  },
+  "gypfile": true,  
+  "version": "1.0.0",
+  "description": "testing napi",
+  "author": "Archway Network (https://archway.io)",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "vitest": "^0.28.5"
+  }
+}
