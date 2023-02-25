@@ -11,6 +11,11 @@ git --version
 cc --version
 make --version
 
+# Structure
+- src/go contains all go files
+- keyring.cc exposes those C bound native files to Node
+- lib/binding.js exports the keyring.cc exports as js exports
+
 # Warning
 M1 Macs need a unique build script to force building as arm64 (defaults to amd64). Notice the env variable CGO_ENABLED it silently turns off only when building to a platform that is not current platform default. So if current GOARCH=amd64 and one tries to build for arm64, then it will fail because CGO_ENABLED is silently set to 0 (false). Very frustrating!
 So you must use build-m1-mac.sh to build the go module on m1 macs for m1 macs.
