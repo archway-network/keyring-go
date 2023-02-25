@@ -1,8 +1,11 @@
 package main
 
+//#include <stdlib.h>
 import "C"
 
 import (
+	"unsafe"
+
 	"github.com/99designs/keyring"
 )
 
@@ -19,6 +22,20 @@ func SetOsStore(serviceName *C.char, keyName *C.char, data *C.char) {
 
 	// i, _ := ring.Get(C.GoString(keyName))
 	// fmt.Printf("%s", i.Data)
+}
+
+//export GetOsStore
+func GetOsStore(serviceName *C.char, keyName *C.char) *C.char {
+	ring, _ := keyring.Open(keyring.Config{
+		ServiceName: C.GoString(serviceName),
+	})
+
+	i, _ := ring.Get((C.GoString(keyName)))
+	dataStr := string(i.Data[:])
+	returnStr := (*C.char)(C.CString(dataStr))
+	defer C.free(unsafe.Pointer(returnStr))
+
+	return returnStr
 }
 
 func main() {}
