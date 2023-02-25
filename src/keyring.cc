@@ -4,6 +4,7 @@
 using namespace Napi;
 
 // note: C++ functions cannot have same name as the Go functions!
+// todo: maybe convert to using std::vector<char>, instead of char*
 
 Napi::String setOsStore(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();

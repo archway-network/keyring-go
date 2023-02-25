@@ -5,7 +5,7 @@ assert(setOsStore, "The expected function is undefined");
 
 function testSetOsStore()
 {
-    const result =  setOsStore("archwayhq", "keyring1", "hello world");
+    const result =  setOsStore("archwayhq", "keyring2", "hello world 2");
     assert.strictEqual(result, "world", "Unexpected value returned");
 }
 

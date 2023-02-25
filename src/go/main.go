@@ -3,8 +3,6 @@ package main
 import "C"
 
 import (
-	"fmt"
-
 	"github.com/99designs/keyring"
 )
 
@@ -19,9 +17,8 @@ func SetOsStore(serviceName *C.char, keyName *C.char, data *C.char) {
 		Data: []byte(C.GoString(data)),
 	})
 
-	i, _ := ring.Get(C.GoString(keyName))
-
-	fmt.Printf("%s", i.Data)
+	// i, _ := ring.Get(C.GoString(keyName))
+	// fmt.Printf("%s", i.Data)
 }
 
 func main() {}
