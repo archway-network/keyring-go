@@ -85,4 +85,34 @@ func SetFileStore(fileSaveDir *C.char, fileName *C.char, data *C.char) *C.char {
 	return result
 }
 
+//export GetFileStore
+func GetFileStore(fileSaveDir *C.char, fileName *C.char) *C.char {
+	saveDir := C.GoString(fileSaveDir)
+
+	ring, openErr := keyring.Open(keyring.Config{
+		AllowedBackends:  []keyring.BackendType{"file"},
+		FilePasswordFunc: keyring.FixedStringPrompt("Please select a password"),
+		FileDir:          saveDir,
+	})
+	if openErr != nil {
+		openErrStr := string(openErr.Error())
+		returnErrStr := (*C.char)(C.CString(openErrStr))
+		defer C.free(unsafe.Pointer(returnErrStr))
+		return returnErrStr
+	}
+
+	fileNameStr := C.GoString(fileName)
+	fileItem, getErr := ring.Get(fileNameStr)
+	if getErr != nil {
+		errStr := string(getErr.Error())
+		returnErrStr := (*C.char)(C.CString(errStr))
+		defer C.free(unsafe.Pointer(returnErrStr))
+		return returnErrStr
+	}
+
+	result := (*C.char)(C.CString(string(fileItem.Data)))
+	defer C.free(unsafe.Pointer(result))
+	return result
+}
+
 func main() {}

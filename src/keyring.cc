@@ -70,6 +70,24 @@ Napi::String setFileStore(const Napi::CallbackInfo& info) {
   return result;
 }
 
+Napi::String getFileStore(const Napi::CallbackInfo& info) {
+  Napi::Env env = info.Env();
+
+  std::string fileSaveDirArg = info[0].As<Napi::String>().ToString();
+  char *fileSaveDir = new char[fileSaveDirArg.length() + 1];
+  strcpy(fileSaveDir, fileSaveDirArg.c_str());
+  
+  std::string fileNameArg = info[1].As<Napi::String>().ToString();
+  char *fileName = new char[fileNameArg.length() + 1];
+  strcpy(fileName, fileNameArg.c_str());
+
+  Napi::String result = Napi::String::New(env, GetFileStore(fileSaveDir, fileName));
+
+  delete [] fileSaveDir;
+  delete [] fileName;
+  return result;
+}
+
 Napi::Object Init(Napi::Env env, Napi::Object exports) {
   exports.Set(Napi::String::New(env, "setOsStore"),
               Napi::Function::New(env, setOsStore));
@@ -77,6 +95,8 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
               Napi::Function::New(env, getOsStore));
   exports.Set(Napi::String::New(env, "setFileStore"),
               Napi::Function::New(env, setFileStore));
+  exports.Set(Napi::String::New(env, "getFileStore"),
+              Napi::Function::New(env, getFileStore));
   return exports;
 }
 

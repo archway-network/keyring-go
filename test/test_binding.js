@@ -1,4 +1,4 @@
-const { setOsStore, getOsStore, setFileStore } = require("../lib/binding.js");
+const { setOsStore, getOsStore, setFileStore, getFileStore } = require("../lib/binding.js");
 const assert = require("assert");
 
 assert(setOsStore, "setOsStore is undefined");
@@ -21,18 +21,25 @@ function testGetOsStore() {
     console.log("getOsTore returns", result);
 }
 
-function testSetFileStore() {    
-    const fileSaveDir = "~/";
-    const fileNameFile = "file-keyring1";
-    const dataForFile = "hello world file 1";
+const fileSaveDir = "~/";
+const fileNameFile = "file-keyring2";
+const dataForFile = "hello world file 2";
 
+function testSetFileStore() {       
     const result = setFileStore(fileSaveDir, fileNameFile, dataForFile);
     console.log("testSetFileStore result", result);
     assert.strictEqual(result, "", "Unexpected value returned");
 }
 
+function testGetFileStore() {       
+    const dataResult = getFileStore(fileSaveDir, fileNameFile);
+    console.log("testSetFileStore data", dataResult);
+    assert.strictEqual(dataResult, dataForFile, "Unexpected value returned");
+}
+
 assert.doesNotThrow(testSetOsStore, undefined, "testSetOsStore threw an expection");
 assert.doesNotThrow(testGetOsStore, undefined, "testGetOsStore threw an expection");
 assert.doesNotThrow(testSetFileStore, undefined, "testSetFileStore threw an expection");
+assert.doesNotThrow(testGetFileStore, undefined, "testGetFileStore threw an expection");
 
 console.log("Tests passed- everything looks OK!");
