@@ -2,14 +2,19 @@
   "name": "@archwayhq/keyring-go",
   "main": "lib/binding.js",
   "dependencies": {
+    "@cosmjs/cosmwasm-stargate": "^0.29.5",
+    "@cosmjs/proto-signing": "^0.29.5",
+    "@cosmjs/stargate": "^0.29.5",
+    "@cosmjs/tendermint-rpc": "^0.29.5",
+    "dotenv": "^16.0.3",
     "node-addon-api": "^1.1.0"
   },
   "scripts": {
     "build": "node-gyp configure build",
     "test": "node --napi-modules ./test/test_binding.js",
-    "vitest": "vitest --napi-modules ./test/vitest_binding.js"
+    "vitest": "vitest"
   },
-  "gypfile": true,  
+  "gypfile": true,
   "version": "1.0.0",
   "description": "testing napi",
   "author": "Archway Network (https://archway.io)",
