@@ -27,13 +27,13 @@ const dataForFile = "hello world file 2";
 
 function testSetFileStore() {       
     const result = setFileStore(fileSaveDir, fileNameFile, dataForFile);
-    console.log("testSetFileStore result", result);
+    console.log("setFileStore returns", result);
     assert.strictEqual(result, "", "Unexpected value returned");
 }
 
 function testGetFileStore() {       
     const dataResult = getFileStore(fileSaveDir, fileNameFile);
-    console.log("testSetFileStore data", dataResult);
+    console.log("getFileStore returns", dataResult);
     assert.strictEqual(dataResult, dataForFile, "Unexpected value returned");
 }
 
