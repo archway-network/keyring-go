@@ -11,6 +11,7 @@ python --version
 git --version
 cc --version
 make --version
+go --version
 
 # Project Design and Structure
 - Project uses the recommended tooling for Node-Api projects
@@ -27,8 +28,8 @@ You must use build-m1-mac.sh to build the go module on m1 macs for m1 macs.
 # Required Steps to Run Tests
 0. Setup:
     1. Run npm install
-    2. Create .env file with your test account DEVX_TEST_ACCOUNT_MNEMONIC (must have some coins in Constantine)
-1. Run this command to build C binary (i.e. Go based C dll): 
+    2. Create .env file with your test account DEVX_TEST_ACCOUNT_MNEMONIC (account must have some coins in Constantine)
+1. Run this command to build C binary (i.e. Go based C dll. Note after changes to go code, before building again delete files output files to start again): 
     1. Non M1 Mac: npm run build:go
     2. M1 Mac: npm run build:go:m1
     3. Once build is complete you should see keyring.h and keyring.so on root (keyring.so is C binary)
