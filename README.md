@@ -22,7 +22,9 @@ M1 Macs need a unique build script to force building as arm64 (defaults to amd64
 You must use build-m1-mac.sh to build the go module on m1 macs for m1 macs.
 
 # Required Steps to Run Tests
-0. Please make sure to install packages: npm install
+0. Setup:
+    1. Run npm install
+    2. Create .env file with your test account DEVX_TEST_ACCOUNT_MNEMONIC (must have some coins in Constantine)
 1. Run this command to build C binary (i.e. Go based C dll): 
     1. Non M1 Mac: npm run build:go
     2. M1 Mac: npm run build:go:m1
