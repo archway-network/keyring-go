@@ -10,9 +10,11 @@
     "node-addon-api": "^1.1.0"
   },
   "scripts": {
-    "build": "node-gyp configure build",
+    "build:node": "node-gyp configure build",
+    "build:go:m1": "sh build-m1-mac.sh",
+    "build:go": "sh build.sh",
     "test": "node --napi-modules ./test/test_binding.js",
-    "vitest": "vitest"
+    "vitest": "vitest ./test/cosmjs.spec.mjs"
   },
   "gypfile": true,
   "version": "1.0.0",
