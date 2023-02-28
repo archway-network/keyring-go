@@ -9,7 +9,8 @@ node --version
 npm --version
 python --version
 git --version
-cc --version
+cc --version (on mac)
+gcc --version (on linux)
 make --version
 go --version
 
