@@ -2,7 +2,7 @@ name: test-keyring-go
 on: [push]
 jobs:
   build-native-c-module-on-mac:
-    runs-on: macos-latest
+    runs-on: macos-12
     environment: dev
     steps:
       - uses: actions/checkout@v3
