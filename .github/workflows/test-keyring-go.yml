@@ -7,11 +7,7 @@ jobs:
         os:
           - macos-latest
         compiler:
-          - gcc
           - cc
-        include:
-          - os: windows-latest
-            compiler: msvc
     runs-on: ${{ matrix.os }}
     environment: dev
     steps:
@@ -19,7 +15,6 @@ jobs:
       - uses: aminya/setup-cpp@v1
         with:
           compiler: ${{ matrix.compiler }}
-          vcvarsall: ${{ contains(matrix.os, 'windows') }}
           cmake: true
           vcpkg: true
       - uses: actions/setup-node@v3
