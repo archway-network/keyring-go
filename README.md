@@ -12,9 +12,12 @@ git --version
 cc --version
 make --version
 
-# Structure
+# Project Design and Structure
+- Project uses the recommended tooling for Node-Api projects
+    - Project creation: Yeoman and generator-napi-module
+    - Built with C++ module for simpler object syntax: node-addon-api
 - src/go contains all go files
-- src/keyring.cc exposes the C bound native files to Node-Api
+- src/keyring.cc exposes the C bound native files to Node-Api using simpler OOP syntax
 - lib/binding.js exports the keyring.cc exports to Javascript
 
 # Warning
