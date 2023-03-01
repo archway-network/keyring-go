@@ -1,7 +1,7 @@
 name: test-keyring-go
 on: [push]
 jobs:
-  build-native-c-module-on-mac:
+  build-native-node-module-on-mac:
     runs-on: macos-12
     environment: dev
     steps:
@@ -17,6 +17,6 @@ jobs:
           go-version: '1.20.1'      
       - run: npm install --ignore-scripts
       - run: npm run build:go:m1
-      - run: npm run build:node
+      - run: npm run build:node:m1
       - run: npm run test
       - run: npm run vitest
