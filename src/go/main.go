@@ -10,6 +10,8 @@ import (
 
 	"unsafe"
 
+	"fmt"
+
 	"github.com/99designs/keyring"
 )
 
@@ -33,6 +35,7 @@ func SetOsStore(serviceName *C.char, keyName *C.char, data *C.char) {
 	if err != nil {
 		panic("Getting backend type has failed! " + err.Error())
 	}
+	fmt.Println("SetOsStore.BackendType", backendType)
 
 	ring, _ := keyring.Open(keyring.Config{
 		AllowedBackends: []keyring.BackendType{backendType},
