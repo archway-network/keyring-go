@@ -4,15 +4,39 @@ package main
 import "C"
 
 import (
+	"runtime"
+
+	"errors"
+
 	"unsafe"
 
 	"github.com/99designs/keyring"
 )
 
+func getBackendType() (keyring.BackendType, error) {
+	os := runtime.GOOS
+	switch os {
+	case "windows":
+		return keyring.WinCredBackend, nil
+	case "darwin":
+		return keyring.KeychainBackend, nil
+	case "linux":
+		return keyring.SecretServiceBackend, nil
+	default:
+		return keyring.InvalidBackend, errors.New("Error")
+	}
+}
+
 //export SetOsStore
 func SetOsStore(serviceName *C.char, keyName *C.char, data *C.char) {
+	backendType, err := getBackendType()
+	if err != nil {
+		panic("Getting backend type has failed! " + err.Error())
+	}
+
 	ring, _ := keyring.Open(keyring.Config{
-		ServiceName: C.GoString(serviceName),
+		AllowedBackends: []keyring.BackendType{backendType},
+		ServiceName:     C.GoString(serviceName),
 	})
 
 	_ = ring.Set(keyring.Item{
@@ -23,8 +47,14 @@ func SetOsStore(serviceName *C.char, keyName *C.char, data *C.char) {
 
 //export GetOsStore
 func GetOsStore(serviceName *C.char, keyName *C.char) *C.char {
+	backendType, err := getBackendType()
+	if err != nil {
+		panic("Getting backend type has failed! " + err.Error())
+	}
+
 	ring, _ := keyring.Open(keyring.Config{
-		ServiceName: C.GoString(serviceName),
+		AllowedBackends: []keyring.BackendType{backendType},
+		ServiceName:     C.GoString(serviceName),
 	})
 
 	i, _ := ring.Get((C.GoString(keyName)))
@@ -43,7 +73,7 @@ func SetFileStore(fileSaveDir *C.char, fileName *C.char, data *C.char) *C.char {
 	// saveDir, _ := os.Getwd()
 
 	ring, openErr := keyring.Open(keyring.Config{
-		AllowedBackends:  []keyring.BackendType{"file"},
+		AllowedBackends:  []keyring.BackendType{keyring.FileBackend},
 		FilePasswordFunc: keyring.FixedStringPrompt("Please select a password"),
 		FileDir:          saveDir,
 	})
@@ -90,7 +120,7 @@ func GetFileStore(fileSaveDir *C.char, fileName *C.char) *C.char {
 	saveDir := C.GoString(fileSaveDir)
 
 	ring, openErr := keyring.Open(keyring.Config{
-		AllowedBackends:  []keyring.BackendType{"file"},
+		AllowedBackends:  []keyring.BackendType{keyring.FileBackend},
 		FilePasswordFunc: keyring.FixedStringPrompt("Please select a password"),
 		FileDir:          saveDir,
 	})
