@@ -25,6 +25,12 @@ jobs:
     environment: dev
     steps:
       - uses: actions/checkout@v3
+      - uses: aminya/setup-cpp@v1
+        with:
+          compiler: gcc
+          cmake: true
+          ninja: true
+          vcpkg: true
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
