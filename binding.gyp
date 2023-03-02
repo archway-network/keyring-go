@@ -13,7 +13,10 @@
         'MACOSX_DEPLOYMENT_TARGET': '12'
       },
       'msvs_settings': {
-        'VCCLCompilerTool': { 'ExceptionHandling': 1 },
+        'VCCLCompilerTool': { 
+          'ExceptionHandling': 1,
+          'RuntimeLibrary': 2
+        },
       },
       "libraries": [
         "<!(pwd)/keyring.so"
