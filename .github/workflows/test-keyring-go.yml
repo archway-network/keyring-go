@@ -6,13 +6,9 @@ jobs:
     environment: dev
     steps:
       - uses: actions/checkout@v3
-      - uses: aminya/setup-cpp@v1
+      - uses: egor-tensin/setup-mingw@v2
         with:
-          compiler: msvc
-          vcvarsall: true
-          cmake: true
-          ninja: true
-          vcpkg: true
+          platform: x64
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
