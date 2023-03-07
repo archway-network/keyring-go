@@ -18,5 +18,4 @@ jobs:
       - run: npm install --ignore-scripts
       - run: npm run build:go:amd64
       - run: npm run build:node
-      - run: npm run test
-      - run: npm run vitest
+      - run: npm run test:file

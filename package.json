@@ -17,7 +17,9 @@
     "build:go:win": "sh build-win.sh",
     "build:go": "sh build.sh",
     "test": "node --napi-modules ./test/test_binding.js",
-    "vitest": "vitest ./test/cosmjs.spec.mjs"
+    "test:file": "node --napi-modules ./test/binding_file.spec.js",
+    "vitest": "vitest ./test/cosmjs.spec.mjs",
+    "vitest:file": "vitest ./test/cosmjs_file.spec.mjs"
   },
   "gypfile": true,
   "version": "1.0.0",
