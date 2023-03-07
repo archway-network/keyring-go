@@ -63,10 +63,14 @@ Napi::String setFileStore(const Napi::CallbackInfo& info) {
   strcpy(data, dataArg.c_str());
 
   Napi::String result = Napi::String::New(env, SetFileStore(fileSaveDir, fileName, data));
-
+  
   delete [] fileSaveDir;
   delete [] fileName;
   delete [] data;
+
+  if (result == Napi::String::New(env, "")) {
+    return Napi::String::New(env, "success");
+  }
   return result;
 }
 
