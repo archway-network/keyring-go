@@ -9,8 +9,9 @@ node --version
 npm --version
 python --version
 git --version
-cc --version (on mac)
+cc --version (on mac, it's really clang internally)
 gcc --version (on linux)
+mingw64 --version (on windows)
 make --version
 go --version
 

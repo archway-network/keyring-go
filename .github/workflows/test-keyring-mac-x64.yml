@@ -1,4 +1,4 @@
-name: test-keyring-go
+name: test-keyring-mac-x64
 on: [push]
 jobs:
   build-native-node-module-on-mac:
