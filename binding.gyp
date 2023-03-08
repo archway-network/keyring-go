@@ -24,9 +24,10 @@
       'conditions': [
         ['OS=="win"', {
           'defines': [
-            '_MSC_VER=1935',
-          ],
-        }
+              '_MSC_VER=1935',
+            ],
+          }
+        ]
       ]
     }
   ]
