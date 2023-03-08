@@ -20,6 +20,13 @@
       },
       "libraries": [
         "<!(pwd)/keyring.so"
+      ],
+      'conditions': [
+        ['OS=="win"', {
+          'defines': [
+            '_MSC_VER=1935',
+          ],
+        }
       ]
     }
   ]
