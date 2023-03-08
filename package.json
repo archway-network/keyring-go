@@ -12,6 +12,7 @@
   },
   "scripts": {
     "build:node": "node-gyp configure build",
+    "build:node:win": "_MSC_VER=1935 node-gyp configure build",
     "build:go:m1": "sh build-m1-mac.sh",
     "build:go:amd64": "sh build-amd64-mac.sh",
     "build:go:win": "sh build-win.sh",
