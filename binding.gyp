@@ -7,9 +7,6 @@
       'dependencies': ["<!(node -p \"require('node-addon-api').gyp\")"],
       'cflags!': [ '-fno-exceptions' ],
       'cflags_cc!': [ '-fno-exceptions' ],
-      'defines': [
-        '_MSC_VER=1935',
-      ],
       'xcode_settings': {
         'GCC_ENABLE_CPP_EXCEPTIONS': 'YES',
         'CLANG_CXX_LIBRARY': 'libc++',
@@ -27,10 +24,13 @@
       'conditions': [
         ['OS=="win"', {
           'defines': [
-              '_MSC_VER=1935',
-            ],
-          }
-        ]
+            '_MSC_VER=1935',
+          ],
+          'sources': [ 'src/c_build/win/keyring.cc' ],
+          "libraries": [
+            "<!(pwd)/keyring.dll"
+          ],
+        }]
       ]
     }
   ]
