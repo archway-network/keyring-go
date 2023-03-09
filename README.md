@@ -11,7 +11,7 @@ python --version
 git --version
 cc --version (on mac, it's really clang internally)
 gcc --version (on linux)
-mingw64 --version (on windows)
+mingw64 --version and vs 2022 (on windows, see below windows section)
 make --version
 go --version
 
@@ -20,6 +20,7 @@ go --version
 2. install python
 3. install nodejs
 3. install npm install --g --production windows-build-tools (windows-build-tools was failing for me) OR winget install --id=Microsoft.VisualStudio.2022.BuildTools  -e
+Note also linux and mac generate keyring.h and keyring.so, but windows generates keyring.h, keyring.dll, keyring.def, and keyring.lib
 
 # Project Design and Structure
 - Project uses the recommended tooling for Node-Api projects

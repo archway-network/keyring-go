@@ -30,9 +30,10 @@
             '_MSC_VER=1935',
           ],
           "libraries": [
-            "<!(cd)/c_build/win/keyring.lib"
+            "<!(cd)/keyring.lib"
           ],
-        }, { # not windows
+        }],
+        ['OS=="mac"', {
           "libraries": [
             "<!(pwd)/keyring.so"
           ],

@@ -1,6 +1,7 @@
 node_modules
 build
-c_build
 keyring.h
 keyring.so
+keyring.lib
+keyring.def
 .env

@@ -1,9 +1,5 @@
 #include <napi.h>
-#ifdef _MSC_VER
-  #include "../c_build/win/keyring.h"
-#else
-  #include "../keyring.h"
-#endif
+#include "../keyring.h"
 
 using namespace Napi;
 
