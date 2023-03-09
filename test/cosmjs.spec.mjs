@@ -1,5 +1,5 @@
 import { expect, it, describe } from 'vitest';
-import { setOsStore, getOsStore, setFileStore, getFileStore } from "../lib/binding.js";
+import { setOsStore, getOsStore, setFileStore, getFileStore, setUnencryptedFileStore, getUnencryptedFileStore, setMemoryStore, getMemoryStore } from "../lib/binding.js";
 import { DirectSecp256k1HdWallet } from '@cosmjs/proto-signing';
 import { SigningStargateClient, GasPrice } from "@cosmjs/stargate"
 import dotenv from 'dotenv';
@@ -35,6 +35,26 @@ describe("End to end test for keyring", () => {
         const result = await generateKeyAndSendFunds(mnemonic);
         expect(result).toBe(0);
     }, { timeout });
+
+    it("checks that a mnemonic is saved to unencrypted file store, retrieves it from unencrypted file, and then sends funds", async () => {
+        setUnencryptedFileStore(fileSaveDir, fileName, process.env.DEVX_TEST_ACCOUNT_MNEMONIC);
+
+        const mnemonic = getUnencryptedFileStore(fileSaveDir, fileName);
+        console.log("mnemonic:", mnemonic);
+
+        const result = await generateKeyAndSendFunds(mnemonic);
+        expect(result).toBe(0);
+    }, { timeout });
+
+    it("checks that a mnemonic is saved to in memory store, retrieves it from in memory store, and then sends funds", async () => {
+        setMemoryStore(process.env.DEVX_TEST_ACCOUNT_MNEMONIC);
+
+        const mnemonic = getMemoryStore();
+        console.log("mnemonic:", mnemonic);
+
+        const result = await generateKeyAndSendFunds(mnemonic);
+        expect(result).toBe(0);
+    }, { timeout });
 });
 
 async function generateKeyAndSendFunds(mnemonic) {    
@@ -51,7 +71,7 @@ async function generateKeyAndSendFunds(mnemonic) {
     
     const destAddr = "archway12ypnach24z0ckqcwmslkscf9arm903n200runp";    
     const result = await signingClient.sendTokens(sourceAddress, destAddr, [
-        { denom: 'uconst', amount: '1000' }
+        { denom: 'uconst', amount: '10' }
     ], "auto");
 
     console.log("transfer result code", result.code);

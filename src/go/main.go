@@ -80,7 +80,7 @@ func SetFileStore(fileSaveDir *C.char, fileName *C.char, data *C.char) *C.char {
 		return returnErrStr
 	}
 
-	result := (*C.char)(C.CString(""))
+	result := (*C.char)(C.CString("success"))
 	defer C.free(unsafe.Pointer(result))
 	return result
 }
