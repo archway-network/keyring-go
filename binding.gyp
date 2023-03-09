@@ -6,7 +6,7 @@
       'include_dirs': ["<!@(node -p \"require('node-addon-api').include\")"],
       'dependencies': ["<!(node -p \"require('node-addon-api').gyp\")"],
       'cflags!': [ '-fno-exceptions' ],
-      'cflags_cc!': [ '-fno-exceptions' ],
+      'cflags_cc!': [ '-fno-exceptions' ],      
       'xcode_settings': {
         'GCC_ENABLE_CPP_EXCEPTIONS': 'YES',
         'CLANG_CXX_LIBRARY': 'libc++',
@@ -15,20 +15,26 @@
       'msvs_settings': {
         'VCCLCompilerTool': { 
           'ExceptionHandling': 1,
-          'RuntimeLibrary': 2
+          'RuntimeLibrary': 2,
+          'AdditionalOptions': [ '-std:c++14' ]
         },
       },
-      "libraries": [
-        "<!(pwd)/keyring.so"
-      ],
       'conditions': [
+        ['OS=="linux"', {
+          "libraries": [
+            "<!(pwd)/keyring.so"
+          ],
+        }],
         ['OS=="win"', {
           'defines': [
             '_MSC_VER=1935',
           ],
-          'sources': [ 'src/c_build/win/keyring.cc' ],
           "libraries": [
-            "<!(pwd)/keyring.dll"
+            "<!(cd)/c_build/win/keyring.lib"
+          ],
+        }, { # not windows
+          "libraries": [
+            "<!(pwd)/keyring.so"
           ],
         }]
       ]

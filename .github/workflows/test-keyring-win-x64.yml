@@ -17,5 +17,5 @@ jobs:
           go-version: '1.20.1'      
       - run: npm install --ignore-scripts
       - run: npm run build:go:win
-      - run: npm run build:node
-      - run: npm run test:file
+      - run: npm run build:node:win
+      

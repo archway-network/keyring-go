@@ -15,6 +15,12 @@ mingw64 --version (on windows)
 make --version
 go --version
 
+# special windows requirements
+1. install mingw64 (gcc), https://code.visualstudio.com/docs/cpp/config-mingw
+2. install python
+3. install nodejs
+3. install npm install --g --production windows-build-tools (windows-build-tools was failing for me) OR winget install --id=Microsoft.VisualStudio.2022.BuildTools  -e
+
 # Project Design and Structure
 - Project uses the recommended tooling for Node-Api projects
     - Project creation: Yeoman and generator-napi-module
@@ -29,7 +35,7 @@ You must use build-m1-mac.sh to build the go module on m1 macs for m1 macs.
 
 # Required Steps to Run Tests
 0. Setup:
-    1. Run npm install
+    1. Run npm install --ignore-scripts
     2. Create .env file with your test account DEVX_TEST_ACCOUNT_MNEMONIC (account must have some coins in Constantine)
 1. Run this command to build C binary (i.e. Go based C dll. Note after changes to go code, before building again delete files output files to start again): 
     1. Non M1 Mac: npm run build:go
