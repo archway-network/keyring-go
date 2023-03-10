@@ -15,10 +15,9 @@ jobs:
       - uses: actions/setup-go@v3
         with:
           go-version: '1.20.1'
-      - run: cd ~/
-      - run: pwd
+      - name: build secret-service              
       - run: git clone https://github.com/yousefvand/secret-service.git
-      - run: cd secret-service
+        working-directory: secret-service
       - run: pwd
       - run: ls -la
       - run: ./scripts/manage.sh
