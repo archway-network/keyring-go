@@ -22,7 +22,7 @@ jobs:
             pwd
             go build -race -o secretserviced cmd/app/secretserviced/main.go
             go build -race -o secretservice cmd/app/secretservice/main.go
-            cp ../secretserviced.service /etc/systemd/user/secretserviced.service
+            cp ../secretserviced.service ~/.config/systemd/user/secretserviced.service
             sudo systemctl daemon-reload
             systemctl enable --now --user secretserviced.service
             systemctl status --user secretserviced.service
