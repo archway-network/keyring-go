@@ -12,10 +12,8 @@
   },
   "scripts": {
     "build:node": "node-gyp configure build --verbose",
-    "build:node:win": "node-gyp configure build --verbose --arch=x64",
     "build:go:m1": "sh build-m1-mac.sh",
     "build:go:amd64": "sh build-amd64-mac.sh",
-    "build:go:win": "build-win.cmd",
     "build:go": "sh build.sh",
     "test": "node --napi-modules ./test/test_binding.js",
     "test:file": "node --napi-modules ./test/binding_file.spec.js",

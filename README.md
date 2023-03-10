@@ -11,23 +11,15 @@ python --version
 git --version
 cc --version (on mac, it's really clang internally)
 gcc --version (on linux)
-mingw64 --version and vs 2022 (on windows, see below windows section)
 make --version
 go --version
-
-# special windows requirements
-1. install mingw64 (gcc), https://code.visualstudio.com/docs/cpp/config-mingw
-2. install python
-3. install nodejs
-3. install npm install --g --production windows-build-tools (windows-build-tools was failing for me) OR winget install --id=Microsoft.VisualStudio.2022.BuildTools  -e
-Note also linux and mac generate keyring.h and keyring.so, but windows generates keyring.h, keyring.dll, keyring.def, and keyring.lib
 
 # Project Design and Structure
 - Project uses the recommended tooling for Node-Api projects
     - Project creation: Yeoman and generator-napi-module
     - Built with C++ module for simpler object syntax: node-addon-api
 - src/go contains all go files
-- src/keyring.cc exposes the C bound native files to Node-Api using simpler OOP syntax
+- src/keyring.cc exposes the C bound native files to Node-Api using simpler C++ OOP syntax
 - lib/binding.js exports the keyring.cc exports to Javascript
 
 # Warning
@@ -39,9 +31,10 @@ You must use build-m1-mac.sh to build the go module on m1 macs for m1 macs.
     1. Run npm install --ignore-scripts
     2. Create .env file with your test account DEVX_TEST_ACCOUNT_MNEMONIC (account must have some coins in Constantine)
 1. Run this command to build C binary (i.e. Go based C dll. Note after changes to go code, before building again delete files output files to start again): 
-    1. Non M1 Mac: npm run build:go
-    2. M1 Mac: npm run build:go:m1
-    3. Once build is complete you should see keyring.h and keyring.so on root (keyring.so is C binary)
+    - Non M1 Mac: npm run build:go:amd64
+    - M1 Mac: npm run build:go:m1
+    - Linux: npm run build:go
+    - Once build is complete you should see keyring.h and keyring.so on root (keyring.so is C binary)
 2. Run this command to build Node module (i.e. the npm module): npm run build:node
     - Once build completes you should see a folder called build on root (folder contains all Node-Api related files)
 3. Tests:
