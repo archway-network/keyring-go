@@ -14,16 +14,22 @@ jobs:
           python-version: '3.10'          
       - uses: actions/setup-go@v3
         with:
-          go-version: '1.20.1'      
-      - run: git clone https://github.com/yousefvand/secret-service.git
-      - name: build secret-service              
-        working-directory: secret-service
+          go-version: '1.20.1'            
+      - name: Get secret-service code
+        working-directory: ~/.local/bin
         run: | 
             pwd
+            git clone https://github.com/yousefvand/secret-service.git
+      - name: Build secret-service
+        working-directory: secret-service
+        run: |
+            pwd
+            echo Install prereqs
             sudo apt-get install libglib2.0-dev libdbus-1-dev libdbus-glib-1-dev
+            echo Build go files
             go build -race -o secretserviced cmd/app/secretserviced/main.go
             go build -race -o secretservice cmd/app/secretservice/main.go
-            echo copy secreteserviced.service file
+            echo Copy secreteserviced.service config file
             mkdir -p ~/.config/systemd/user && cp ../secretserviced.service ~/.config/systemd/user
             echo Start systemctl
             sudo systemctl daemon-reload
