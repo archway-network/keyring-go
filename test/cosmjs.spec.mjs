@@ -1,7 +1,6 @@
 import { expect, it, describe } from 'vitest';
 import { setOsStore, getOsStore, setFileStore, getFileStore, setUnencryptedFileStore, getUnencryptedFileStore, setMemoryStore, getMemoryStore } from "../lib/binding.js";
-import { DirectSecp256k1HdWallet } from '@cosmjs/proto-signing';
-import { SigningStargateClient, GasPrice } from "@cosmjs/stargate"
+import { generateKeyAndSendFunds } from './fixtures';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -20,7 +19,6 @@ describe("End to end test for keyring", () => {
         setOsStore(serviceName, keyName, process.env.DEVX_TEST_ACCOUNT_MNEMONIC);
 
         const mnemonic = getOsStore(serviceName, keyName);
-        console.log("mnemonic:", mnemonic);
 
         const result = await generateKeyAndSendFunds(mnemonic);
         expect(result).toBe(0);
@@ -30,7 +28,6 @@ describe("End to end test for keyring", () => {
         setFileStore(fileSaveDir, fileName, process.env.DEVX_TEST_ACCOUNT_MNEMONIC);
 
         const mnemonic = getFileStore(fileSaveDir, fileName);
-        console.log("mnemonic:", mnemonic);
 
         const result = await generateKeyAndSendFunds(mnemonic);
         expect(result).toBe(0);
@@ -56,24 +53,3 @@ describe("End to end test for keyring", () => {
         expect(result).toBe(0);
     }, { timeout });
 });
-
-async function generateKeyAndSendFunds(mnemonic) {    
-    const offlineDirectSigner = await DirectSecp256k1HdWallet.fromMnemonic(mnemonic, { prefix: 'archway'});
-    const accounts = await offlineDirectSigner.getAccounts();
-    const sourceAddress = accounts[0].address;
-    console.log("source address", sourceAddress);
-
-    const gasPrice = GasPrice.fromString('1uconst');
-    const signingClient = await SigningStargateClient.connectWithSigner("https://rpc.constantine-1.archway.tech", offlineDirectSigner, {
-        gasPrice,
-    });
-    console.log("chainId", await signingClient.getChainId());
-    
-    const destAddr = "archway12ypnach24z0ckqcwmslkscf9arm903n200runp";    
-    const result = await signingClient.sendTokens(sourceAddress, destAddr, [
-        { denom: 'uconst', amount: '10' }
-    ], "auto");
-
-    console.log("transfer result code", result.code);
-    return result.code;
-}

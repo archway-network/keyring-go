@@ -7,14 +7,18 @@
     "@cosmjs/stargate": "^0.29.5",
     "@cosmjs/tendermint-rpc": "^0.29.5",
     "dotenv": "^16.0.3",
-    "node-addon-api": "^1.1.0"
+    "node-addon-api": "^1.1.0",
+    "node-gyp": "^9.3.1"
   },
   "scripts": {
-    "build:node": "node-gyp configure build",
+    "build:node": "node-gyp configure build --verbose",
     "build:go:m1": "sh build-m1-mac.sh",
+    "build:go:amd64": "sh build-amd64-mac.sh",
     "build:go": "sh build.sh",
     "test": "node --napi-modules ./test/test_binding.js",
-    "vitest": "vitest ./test/cosmjs.spec.mjs"
+    "test:file": "node --napi-modules ./test/binding_file.spec.js",
+    "vitest": "vitest ./test/cosmjs.spec.mjs",
+    "vitest:file": "vitest ./test/cosmjs_file.spec.mjs"
   },
   "gypfile": true,
   "version": "1.0.0",

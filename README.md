@@ -9,7 +9,8 @@ node --version
 npm --version
 python --version
 git --version
-cc --version
+cc --version (on mac, it's really clang internally)
+gcc --version (on linux)
 make --version
 go --version
 
@@ -18,7 +19,7 @@ go --version
     - Project creation: Yeoman and generator-napi-module
     - Built with C++ module for simpler object syntax: node-addon-api
 - src/go contains all go files
-- src/keyring.cc exposes the C bound native files to Node-Api using simpler OOP syntax
+- src/keyring.cc exposes the C bound native files to Node-Api using simpler C++ OOP syntax
 - lib/binding.js exports the keyring.cc exports to Javascript
 
 # Warning
@@ -27,12 +28,13 @@ You must use build-m1-mac.sh to build the go module on m1 macs for m1 macs.
 
 # Required Steps to Run Tests
 0. Setup:
-    1. Run npm install
+    1. Run npm install --ignore-scripts
     2. Create .env file with your test account DEVX_TEST_ACCOUNT_MNEMONIC (account must have some coins in Constantine)
 1. Run this command to build C binary (i.e. Go based C dll. Note after changes to go code, before building again delete files output files to start again): 
-    1. Non M1 Mac: npm run build:go
-    2. M1 Mac: npm run build:go:m1
-    3. Once build is complete you should see keyring.h and keyring.so on root (keyring.so is C binary)
+    - Non M1 Mac: npm run build:go:amd64
+    - M1 Mac: npm run build:go:m1
+    - Linux: npm run build:go
+    - Once build is complete you should see keyring.h and keyring.so on root (keyring.so is C binary)
 2. Run this command to build Node module (i.e. the npm module): npm run build:node
     - Once build completes you should see a folder called build on root (folder contains all Node-Api related files)
 3. Tests:
