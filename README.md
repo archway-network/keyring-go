@@ -22,6 +22,9 @@ go --version
 - src/keyring.cc exposes the C bound native files to Node-Api using simpler C++ OOP syntax
 - lib/binding.js exports the keyring.cc exports to Javascript
 
+# Github Actions
+- The default working directory is /home/runner/work/keyring-go/keyring-go
+
 # Warning
 M1 Macs need a unique build script to force building as arm64 (defaults to amd64). Notice, the env variable CGO_ENABLED will silently turn off when building to a platform that is not the current platform default. So if current GOARCH=amd64 and one tries to build for arm64, then it will fail because CGO_ENABLED is silently set to 0 (false). Very frustrating!
 You must use build-m1-mac.sh to build the go module on m1 macs for m1 macs.
