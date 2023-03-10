@@ -1,7 +1,7 @@
-name: test-keyring-mac-x64
+name: test-keyring-linux-x64
 on: [push]
 jobs:
-  build-native-node-module-on-mac:
+  build-native-node-module-on-linux:
     runs-on: ubuntu-latest
     environment: dev
     steps:
