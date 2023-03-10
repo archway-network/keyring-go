@@ -18,7 +18,11 @@ jobs:
       - run: cd ~/
       - run: pwd
       - run: git clone https://github.com/yousefvand/secret-service.git
-      - run: sudo apt-get install libglib2.0-dev libdbus-1-dev libdbus-glib-1-dev
       - run: cd secret-service
-      - run: make
-      - run: sudo make install
+      - run: pwd
+      - run: ls -la
+      - run: ./scripts/manage.sh
+      - run: sudo systemctl daemon-reload
+      - run: systemctl enable --now --user secretserviced.service
+      - run: systemctl status --user secretserviced.service
+      - run: secretservice ping
