@@ -35,7 +35,8 @@ You must use build-m1-mac.sh to build the go module on m1 macs for m1 macs.
     - M1 Mac: npm run build:go:m1
     - Linux: npm run build:go
     - Once build is complete you should see keyring.h and keyring.so on root (keyring.so is C binary)
-2. Run this command to build Node module (i.e. the npm module): npm run build:node
+2. Run this command to build Node module (i.e. the npm module): 
+    - npm run build:node
     - Once build completes you should see a folder called build on root (folder contains all Node-Api related files)
 3. Tests:
     1. Testing bindings (i.e. core functionality): npm run test
