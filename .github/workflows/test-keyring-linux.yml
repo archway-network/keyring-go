@@ -20,6 +20,7 @@ jobs:
         working-directory: secret-service
         run: | 
             pwd
+            sudo apt-get install libglib2.0-dev libdbus-1-dev libdbus-glib-1-dev
             go build -race -o secretserviced cmd/app/secretserviced/main.go
             go build -race -o secretservice cmd/app/secretservice/main.go
             echo copy secreteserviced.service file
