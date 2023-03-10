@@ -62,7 +62,11 @@ Napi::String setFileStore(const Napi::CallbackInfo& info) {
   char *data = new char[dataArg.length() + 1];
   strcpy(data, dataArg.c_str());
 
-  Napi::String result = Napi::String::New(env, SetFileStore(fileSaveDir, fileName, data));
+  std::string filePasswordArg = info[3].As<Napi::String>().ToString();
+  char *filePassword = new char[filePasswordArg.length() + 1];
+  strcpy(filePassword, filePasswordArg.c_str());
+
+  Napi::String result = Napi::String::New(env, SetFileStore(fileSaveDir, fileName, data, filePassword));
   
   delete [] fileSaveDir;
   delete [] fileName;
@@ -85,7 +89,11 @@ Napi::String getFileStore(const Napi::CallbackInfo& info) {
   char *fileName = new char[fileNameArg.length() + 1];
   strcpy(fileName, fileNameArg.c_str());
 
-  Napi::String result = Napi::String::New(env, GetFileStore(fileSaveDir, fileName));
+  std::string filePasswordArg = info[2].As<Napi::String>().ToString();
+  char *filePassword = new char[filePasswordArg.length() + 1];
+  strcpy(filePassword, filePasswordArg.c_str());
+
+  Napi::String result = Napi::String::New(env, GetFileStore(fileSaveDir, fileName, filePassword));
 
   delete [] fileSaveDir;
   delete [] fileName;

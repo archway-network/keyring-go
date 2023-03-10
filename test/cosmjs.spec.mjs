@@ -10,6 +10,7 @@ const keyName = "keyring3";
 
 const fileSaveDir = "~/"; // user home dir
 const fileName = "file-keyring3";
+const filePassword = "password123";
 
 // note: in real run cosmjs will generate a mnemonic and this will be saved into keystore
 // however for this test we need an account with a token balance so we can actually test a tx execution
@@ -25,9 +26,9 @@ describe("End to end test for keyring", () => {
     }, { timeout });
 
     it("checks that a mnemonic is saved to encrypted file store, retrieves it from file, and then sends funds", async () => {
-        setFileStore(fileSaveDir, fileName, process.env.DEVX_TEST_ACCOUNT_MNEMONIC);
+        setFileStore(fileSaveDir, fileName, process.env.DEVX_TEST_ACCOUNT_MNEMONIC, filePassword);
 
-        const mnemonic = getFileStore(fileSaveDir, fileName);
+        const mnemonic = getFileStore(fileSaveDir, fileName, filePassword);
 
         const result = await generateKeyAndSendFunds(mnemonic);
         expect(result).toBe(0);

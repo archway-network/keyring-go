@@ -28,15 +28,16 @@ function testGetOsStore() {
 const fileSaveDir = "~/";
 const fileNameFile = "file-keyring2";
 const dataForFile = "hello world file 2";
+const filePassword = "password123";
 
 function testSetFileStore() {  
-    const result = setFileStore(fileSaveDir, fileNameFile, dataForFile);
+    const result = setFileStore(fileSaveDir, fileNameFile, dataForFile, filePassword);
     console.log("setFileStore returns:", result);
     assert.strictEqual(result, success, "Unexpected value returned");
 }
 
 function testGetFileStore() {  
-    const dataResult = getFileStore(fileSaveDir, fileNameFile);
+    const dataResult = getFileStore(fileSaveDir, fileNameFile, filePassword);
     console.log("getFileStore returns:", dataResult);
     assert.strictEqual(dataResult, dataForFile, "Unexpected value returned");
 }
