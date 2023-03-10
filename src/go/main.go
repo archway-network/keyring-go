@@ -95,7 +95,7 @@ func GetOsStore(serviceName *C.char, keyName *C.char) *C.char {
 // note: ~/ is root of user dir
 //
 //export SetFileStore
-func SetFileStore(fileSaveDir *C.char, fileName *C.char, data *C.char) *C.char {
+func SetFileStore(fileSaveDir *C.char, fileName *C.char, data *C.char, filePassword *C.char) *C.char {
 	fmt.Println("SetFileStore start")
 	saveDir := C.GoString(fileSaveDir)
 	// saveDir, _ := os.Getwd()
@@ -107,7 +107,7 @@ func SetFileStore(fileSaveDir *C.char, fileName *C.char, data *C.char) *C.char {
 
 	ring, openErr := keyring.Open(keyring.Config{
 		AllowedBackends:  []keyring.BackendType{keyring.FileBackend},
-		FilePasswordFunc: keyring.FixedStringPrompt("Please select a password"),
+		FilePasswordFunc: keyring.FixedStringPrompt(C.GoString(filePassword)),
 		FileDir:          saveDir,
 	})
 	if openErr != nil {
@@ -156,7 +156,7 @@ func SetFileStore(fileSaveDir *C.char, fileName *C.char, data *C.char) *C.char {
 }
 
 //export GetFileStore
-func GetFileStore(fileSaveDir *C.char, fileName *C.char) *C.char {
+func GetFileStore(fileSaveDir *C.char, fileName *C.char, filePassword *C.char) *C.char {
 	fmt.Println("GetFileStore start")
 	saveDir := C.GoString(fileSaveDir)
 	backendType, err := getBackendType()
@@ -167,7 +167,7 @@ func GetFileStore(fileSaveDir *C.char, fileName *C.char) *C.char {
 
 	ring, openErr := keyring.Open(keyring.Config{
 		AllowedBackends:  []keyring.BackendType{keyring.FileBackend},
-		FilePasswordFunc: keyring.FixedStringPrompt("Please select a password"),
+		FilePasswordFunc: keyring.FixedStringPrompt(C.GoString(filePassword)),
 		FileDir:          saveDir,
 	})
 	if openErr != nil {
