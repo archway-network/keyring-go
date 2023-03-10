@@ -14,7 +14,7 @@ function set(data, key = "_default_key_") {
     InMemoryStore.set(key, data);
     return "success";
   } catch (err) {
-    console.error(`Unexpected error when writing to file.`);
+    console.error(`Unexpected error when writing to memory.`);
     throw err;
   }
 }
@@ -23,7 +23,7 @@ function get(key = "_default_key_") {
   try {
     return InMemoryStore.get(key);
   } catch (err) {
-    console.error(`Unexpected error when reading file`);
+    console.error(`Unexpected error when reading from memory`);
     throw err;
   }
 }
