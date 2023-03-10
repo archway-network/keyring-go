@@ -22,8 +22,13 @@ jobs:
             pwd
             go build -race -o secretserviced cmd/app/secretserviced/main.go
             go build -race -o secretservice cmd/app/secretservice/main.go
+            echo copy secreteserviced.service file
             mkdir -p ~/.config/systemd/user && cp ../secretserviced.service ~/.config/systemd/user
+            echo Start systemctl
             sudo systemctl daemon-reload
+            echo Enable secretserviced
             systemctl enable --now --user secretserviced.service
+            echo Enable secretservice
             systemctl status --user secretserviced.service
+            echo Ping secretservice
             secretservice ping
