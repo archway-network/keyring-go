@@ -40,10 +40,12 @@ Napi::String getOsStore(const Napi::CallbackInfo& info) {
   char *keyName = new char[keyNameArg.length() + 1];
   strcpy(keyName, keyNameArg.c_str());
 
-  Napi::String result = Napi::String::New(env, GetOsStore(serviceName, keyName)); 
+  char *resultCStr = GetOsStore(serviceName, keyName);
+  Napi::String result = Napi::String::New(env, resultCStr); 
 
   delete [] serviceName;
   delete [] keyName;
+  delete [] resultCStr;
   return result;
 }
 
@@ -66,11 +68,13 @@ Napi::String setFileStore(const Napi::CallbackInfo& info) {
   char *filePassword = new char[filePasswordArg.length() + 1];
   strcpy(filePassword, filePasswordArg.c_str());
 
-  Napi::String result = Napi::String::New(env, SetFileStore(fileSaveDir, fileName, data, filePassword));
+  char *resultCStr = SetFileStore(fileSaveDir, fileName, data, filePassword);
+  Napi::String result = Napi::String::New(env, resultCStr);
   
   delete [] fileSaveDir;
   delete [] fileName;
   delete [] data;
+  delete [] resultCStr;
 
   if (result == Napi::String::New(env, "")) {
     return Napi::String::New(env, "success");
@@ -93,10 +97,13 @@ Napi::String getFileStore(const Napi::CallbackInfo& info) {
   char *filePassword = new char[filePasswordArg.length() + 1];
   strcpy(filePassword, filePasswordArg.c_str());
 
-  Napi::String result = Napi::String::New(env, GetFileStore(fileSaveDir, fileName, filePassword));
+  char *resultCStr = GetFileStore(fileSaveDir, fileName, filePassword);
+  Napi::String result = Napi::String::New(env, resultCStr);
 
   delete [] fileSaveDir;
   delete [] fileName;
+  delete [] resultCStr;
+  
   return result;
 }
 
