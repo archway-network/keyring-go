@@ -1,5 +1,5 @@
 import { expect, it, describe } from 'vitest';
-import { setOsStore, getOsStore, setFileStore, getFileStore } from "../lib/binding.js";
+import { setOsStore, getOsStore, setFileStore, getFileStore, setUnencryptedFileStore, getUnencryptedFileStore, setMemoryStore, getMemoryStore } from "../lib/binding.js";
 import { generateKeyAndSendFunds } from './fixtures';
 import dotenv from 'dotenv';
 dotenv.config();
@@ -29,6 +29,26 @@ describe("End to end test for keyring", () => {
         setFileStore(fileSaveDir, fileName, process.env.DEVX_TEST_ACCOUNT_MNEMONIC, filePassword);
 
         const mnemonic = getFileStore(fileSaveDir, fileName, filePassword);
+
+        const result = await generateKeyAndSendFunds(mnemonic);
+        expect(result).toBe(0);
+    }, { timeout });
+
+    it("checks that a mnemonic is saved to unencrypted file store, retrieves it from unencrypted file, and then sends funds", async () => {
+        setUnencryptedFileStore(fileSaveDir, fileName, process.env.DEVX_TEST_ACCOUNT_MNEMONIC);
+
+        const mnemonic = getUnencryptedFileStore(fileSaveDir, fileName);
+        console.log("mnemonic:", mnemonic);
+
+        const result = await generateKeyAndSendFunds(mnemonic);
+        expect(result).toBe(0);
+    }, { timeout });
+
+    it("checks that a mnemonic is saved to in memory store, retrieves it from in memory store, and then sends funds", async () => {
+        setMemoryStore(process.env.DEVX_TEST_ACCOUNT_MNEMONIC);
+
+        const mnemonic = getMemoryStore();
+        console.log("mnemonic:", mnemonic);
 
         const result = await generateKeyAndSendFunds(mnemonic);
         expect(result).toBe(0);
