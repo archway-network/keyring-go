@@ -1,8 +1,8 @@
-const { setFileStore, getFileStore } = require("../lib/binding.js");
+const { FileStore } = require("../lib/binding.js");
 const assert = require("assert");
 
-assert(setFileStore, "setFileStore is undefined");
-assert(getFileStore, "getFileStore is undefined");
+assert(FileStore.set, "FileStore.set is undefined");
+assert(FileStore.get, "FileStore.get is undefined");
 
 const success = "success";
 
@@ -11,21 +11,40 @@ const fileNameFile = "file-keyring2";
 const dataForFile = "hello world file 2";
 const filePassword = "password123";
 
-function testSetFileStore() {  
-    const result = setFileStore(fileSaveDir, fileNameFile, dataForFile, filePassword);
-    console.log("setFileStore returns:", result);
-    assert.strictEqual(result, success, "Unexpected value returned");
+function testSetFileStore() {
+  const result = FileStore.set(
+    fileSaveDir,
+    fileNameFile,
+    dataForFile,
+    filePassword
+  );
+  console.log("FileStore.set returns:", result);
+  assert.strictEqual(result, success, "Unexpected value returned");
 }
 
-function testGetFileStore() {  
-    const dataResult = getFileStore(fileSaveDir, fileNameFile, filePassword);
-    console.log("getFileStore returns:", dataResult);
-    assert.strictEqual(dataResult, dataForFile, "Unexpected value returned");
+function testGetFileStore() {
+    let dataResult
+  try {dataResult = FileStore.get(fileSaveDir, fileNameFile, 1);
+  }
+  catch(e) {
+    console.log(e, '\n\n',e.message)
+
+  }
+  console.log("FileStore.get returns:", dataResult);
+  assert.strictEqual(dataResult, dataForFile, "Unexpected value returned");
 }
 
-assert.doesNotThrow(testSetFileStore, undefined, "testSetFileStore threw an expection");
+assert.doesNotThrow(
+  testSetFileStore,
+  undefined,
+  "testSetFileStore threw an expection"
+);
 console.log("");
-assert.doesNotThrow(testGetFileStore, undefined, "testGetFileStore threw an expection");
+assert.doesNotThrow(
+  testGetFileStore,
+  undefined,
+  "testGetFileStore threw an expection"
+);
 console.log("");
 
 console.log("Tests passed- everything looks OK!");
