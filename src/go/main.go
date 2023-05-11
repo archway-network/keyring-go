@@ -90,14 +90,14 @@ func GetOsStore(serviceName *C.char, keyName *C.char) *C.char {
 	}
 
 	i, getErr := ring.Get((C.GoString(keyName)))
-	dataStr := string(i.Data[:])
-	returnStr := (*C.char)(C.CString(dataStr))
-	defer C.free(unsafe.Pointer(returnStr))
 	if getErr != nil {
 		return formatError(getErr)
 	} else {
 		fmt.Println("GetOsStore got keyring")
 	}
+
+	returnStr := (*C.char)(C.CString(string(i.Data)))
+	defer C.free(unsafe.Pointer(returnStr))
 	fmt.Println("GetOsStore end")
 	return returnStr
 }
