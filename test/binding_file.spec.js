@@ -24,7 +24,7 @@ function testSetFileStore() {
 
 function testGetFileStore() {
     let dataResult
-  try {dataResult = FileStore.get(fileSaveDir, fileNameFile, 1);
+  try {dataResult = FileStore.get(fileSaveDir, fileNameFile, filePassword);
   }
   catch(e) {
     console.log(e, '\n\n',e.message)
