@@ -1,19 +1,26 @@
 const keyring = require("../../build/Release/keyring-go");
-
-const ERROR_PREFIX = "[-!ERROR-]: ";
+const { checkErrorInResponse } = require("./utils");
 
 function set(fileSaveDir, fileName, data, password) {
   const result = keyring.setFileStore(fileSaveDir, fileName, data, password);
-  if (result.toString().startsWith(ERROR_PREFIX))
-    throw new Error(result.replace(ERROR_PREFIX, ""));
+
+  checkErrorInResponse(result);
 
   return result;
 }
 
 function get(fileSaveDir, fileName, password) {
   const result = keyring.getFileStore(fileSaveDir, fileName, password);
-  if (result.toString().startsWith(ERROR_PREFIX))
-    throw new Error(result.replace(ERROR_PREFIX, ""));
+
+  checkErrorInResponse(result);
+
+  return result;
+}
+
+function list(serviceName) {
+  const result = keyring.listFileStore(serviceName);
+
+  if (result?.length === 1) checkErrorInResponse(result[0]);
 
   return result;
 }
@@ -21,4 +28,5 @@ function get(fileSaveDir, fileName, password) {
 module.exports = {
   get,
   set,
+  list,
 };

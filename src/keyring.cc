@@ -27,7 +27,7 @@ Napi::String setOsStore(const Napi::CallbackInfo& info) {
   delete [] serviceName;
   delete [] keyName;
   delete [] data;
-  delete [] goResult;
+  free(goResult);
 
   return result;
 }
@@ -48,7 +48,35 @@ Napi::String getOsStore(const Napi::CallbackInfo& info) {
 
   delete [] serviceName;
   delete [] keyName;
-  delete [] goResult;
+  free(goResult);
+
+  return result;
+}
+
+Napi::Array listOsStore(const Napi::CallbackInfo& info) {
+  Napi::Env env = info.Env();
+  
+  std::string serviceNameArg = info[0].As<Napi::String>().ToString();
+  char *serviceName = new char[serviceNameArg.length() + 1];
+  strcpy(serviceName, serviceNameArg.c_str());
+
+  char **goResult = ListOsStore(serviceName);
+  size_t i, resultSize;
+  for (size_t i = resultSize = 0; goResult[i] != NULL; i++)
+    resultSize += 1;
+      
+  Napi::Array result = Napi::Array::New(env, resultSize);
+
+  for (i = 0; i < resultSize; i++) {
+    Napi::String auxStr = Napi::String::New(env, goResult[i]);
+    result[i] = auxStr;
+  }
+
+  delete [] serviceName;
+  for (i = 0; i < resultSize; i++)
+    free(goResult[i]);
+  free(goResult);
+
   return result;
 }
 
@@ -77,7 +105,7 @@ Napi::String setFileStore(const Napi::CallbackInfo& info) {
   delete [] fileSaveDir;
   delete [] fileName;
   delete [] data;
-  delete [] goResult;
+  free(goResult);
 
   return result;
 }
@@ -102,7 +130,34 @@ Napi::String getFileStore(const Napi::CallbackInfo& info) {
 
   delete [] fileSaveDir;
   delete [] fileName;
-  delete [] goResult;
+  free(goResult);
+  return result;
+}
+
+Napi::Array listFileStore(const Napi::CallbackInfo& info) {
+  Napi::Env env = info.Env();
+
+  std::string fileSaveDirArg = info[0].As<Napi::String>().ToString();
+  char *fileSaveDir = new char[fileSaveDirArg.length() + 1];
+  strcpy(fileSaveDir, fileSaveDirArg.c_str());
+
+  char **goResult = ListFileStore(fileSaveDir);
+  size_t i, resultSize;
+  for (size_t i = resultSize = 0; goResult[i] != NULL; i++)
+    resultSize += 1;
+      
+  Napi::Array result = Napi::Array::New(env, resultSize);
+
+  for (i = 0; i < resultSize; i++) {
+    Napi::String auxStr = Napi::String::New(env, goResult[i]);
+    result[i] = auxStr;
+  }
+
+  delete [] fileSaveDir;
+  for (size_t i = 0; i < resultSize; i++)
+    free(goResult[i]);
+  free (goResult);
+
   return result;
 }
 
@@ -111,10 +166,14 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
               Napi::Function::New(env, setOsStore));
   exports.Set(Napi::String::New(env, "getOsStore"),
               Napi::Function::New(env, getOsStore));
+  exports.Set(Napi::String::New(env, "listOsStore"),
+              Napi::Function::New(env, listOsStore));
   exports.Set(Napi::String::New(env, "setFileStore"),
               Napi::Function::New(env, setFileStore));
   exports.Set(Napi::String::New(env, "getFileStore"),
               Napi::Function::New(env, getFileStore));
+  exports.Set(Napi::String::New(env, "listFileStore"),
+              Napi::Function::New(env, listFileStore));
   return exports;
 }
 
