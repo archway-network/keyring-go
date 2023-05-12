@@ -1,59 +1,43 @@
 const fs = require("fs");
 const path = require("path");
 
+const { resolveTilde } = require("./utils");
+
 function set(fileSaveDir, fileName, data, encoding = "utf-8") {
-  try {
-    const filePath = resolveTilde(path.join(fileSaveDir, fileName));
+  const filePath = resolveTilde(path.join(fileSaveDir, fileName));
 
-    fs.mkdirSync(fileSaveDir, { recursive: true });
-    fs.writeFileSync(filePath, data, { encoding });
+  fs.mkdirSync(fileSaveDir, { recursive: true });
+  fs.writeFileSync(filePath, data, { encoding });
 
-    return "success";
-  } catch (err) {
-    throw new Error(`Unexpected error when writing to file.`);
-  }
+  return "success";
 }
 
 function get(fileSaveDir, fileName, encoding = "utf-8") {
-  try {
-    const filePath = resolveTilde(path.join(fileSaveDir, fileName));
-    const data = fs.readFileSync(filePath, { encoding });
+  const filePath = resolveTilde(path.join(fileSaveDir, fileName));
+  const data = fs.readFileSync(filePath, { encoding });
 
-    return data;
-  } catch (err) {
-    throw new Error(`Unexpected error when reading file`);
-  }
+  return data;
 }
 
 function list(fileSaveDir) {
-  try {
-    return fs
-      .readdirSync(resolveTilde(fileSaveDir), { withFileTypes: true })
-      .filter((item) => !item.isDirectory())
-      .map((item) => item.name);
-  } catch (err) {
-    throw new Error(`Unexpected error when reading files`);
-  }
+  return fs
+    .readdirSync(resolveTilde(fileSaveDir), { withFileTypes: true })
+    .filter((item) => !item.isDirectory())
+    .map((item) => item.name);
 }
 
-// Resolves paths that start with a tilde to the user's home directory.
-function resolveTilde(filePath) {
-  const os = require("os");
+function remove(fileSaveDir, fileName) {
+  const filePath = resolveTilde(path.join(fileSaveDir, fileName));
 
-  if (!filePath || typeof filePath !== "string") {
-    return "";
-  }
+  if (!fs.existsSync(filePath))
+    throw new Error("The specified item could not be found in the keychain");
 
-  // '~/folder/path' or '~' not '~alias/folder/path'
-  if (filePath.startsWith("~/") || filePath === "~") {
-    return filePath.replace("~", os.homedir());
-  }
-
-  return filePath;
+  fs.unlinkSync(filePath);
 }
 
 module.exports = {
   get,
   set,
   list,
+  remove,
 };

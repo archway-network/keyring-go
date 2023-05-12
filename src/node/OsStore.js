@@ -1,4 +1,5 @@
 const keyring = require("../../build/Release/keyring-go");
+
 const { checkErrorInResponse } = require("./utils");
 
 function set(serviceName, keyName, data) {
@@ -25,8 +26,15 @@ function list(serviceName) {
   return result;
 }
 
+function remove(serviceName, keyName) {
+  const result = keyring.deleteOsStore(serviceName, keyName);
+
+  checkErrorInResponse(result);
+}
+
 module.exports = {
   get,
   set,
   list,
+  remove,
 };

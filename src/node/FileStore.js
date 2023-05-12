@@ -1,5 +1,8 @@
+const fs = require("fs");
+const path = require("path");
 const keyring = require("../../build/Release/keyring-go");
-const { checkErrorInResponse } = require("./utils");
+
+const { checkErrorInResponse, resolveTilde } = require("./utils");
 
 function set(fileSaveDir, fileName, data, password) {
   const result = keyring.setFileStore(fileSaveDir, fileName, data, password);
@@ -17,16 +20,28 @@ function get(fileSaveDir, fileName, password) {
   return result;
 }
 
-function list(serviceName) {
-  const result = keyring.listFileStore(serviceName);
+function list(fileSaveDir) {
+  const result = keyring.listFileStore(fileSaveDir);
 
   if (result?.length === 1) checkErrorInResponse(result[0]);
 
   return result;
 }
 
+function remove(fileSaveDir, fileName) {
+  const filePath = resolveTilde(path.join(fileSaveDir, fileName));
+
+  if (!fs.existsSync(filePath))
+    throw new Error("The specified item could not be found in the keychain");
+
+  const result = keyring.deleteFileStore(fileSaveDir, fileName);
+
+  checkErrorInResponse(result);
+}
+
 module.exports = {
   get,
   set,
   list,
+  remove,
 };

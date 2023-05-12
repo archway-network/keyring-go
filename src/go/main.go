@@ -132,6 +132,30 @@ func ListOsStore(serviceName *C.char) **C.char {
 	return buildStringArray(list)
 }
 
+//export DeleteOsStore
+func DeleteOsStore(serviceName *C.char, keyName *C.char) *C.char {
+	backendType, err := getBackendType()
+	if err != nil {
+		return formatError(err)
+	}
+
+	ring, openErr := keyring.Open(keyring.Config{
+		AllowedBackends: []keyring.BackendType{backendType},
+		ServiceName:     C.GoString(serviceName),
+	})
+	if openErr != nil {
+		return formatError(openErr)
+	}
+
+	removeErr := ring.Remove((C.GoString(keyName)))
+	if removeErr != nil {
+		return formatError(removeErr)
+	}
+
+	// Don't forget to free the memory of this pointer in the c++ part of the code
+	return (*C.char)(C.CString("success"))
+}
+
 // note: ~/ is root of user dir
 //
 //export SetFileStore
@@ -204,6 +228,29 @@ func ListFileStore(fileSaveDir *C.char) **C.char {
 
 	// Don't forget to free the memory of this pointer in the c++ part of the code
 	return buildStringArray(list)
+}
+
+//export DeleteFileStore
+func DeleteFileStore(fileSaveDir *C.char, fileName *C.char, filePassword *C.char) *C.char {
+	saveDir := C.GoString(fileSaveDir)
+	// saveDir, _ := os.Getwd()
+
+	ring, openErr := keyring.Open(keyring.Config{
+		AllowedBackends:  []keyring.BackendType{keyring.FileBackend},
+		FilePasswordFunc: keyring.FixedStringPrompt(C.GoString(filePassword)),
+		FileDir:          saveDir,
+	})
+	if openErr != nil {
+		return formatError(openErr)
+	}
+
+	removeErr := ring.Remove(C.GoString(fileName))
+	if removeErr != nil {
+		return formatError(removeErr)
+	}
+
+	// Don't forget to free the memory of this pointer in the c++ part of the code
+	return (*C.char)(C.CString("success"))
 }
 
 func main() {}

@@ -10,6 +10,9 @@ class InMemoryStore {
   static list() {
     return [...this._storeMap.keys()];
   }
+  static delete(key) {
+    return this._storeMap.delete(key);
+  }
 }
 
 function set(data, key = "_default_key_") {
@@ -42,8 +45,22 @@ function list() {
   }
 }
 
+function remove(key = "_default_key_") {
+  let success;
+
+  try {
+    success = InMemoryStore.delete(key);
+  } catch (err) {
+    throw new Error(`Unexpected error when reading from memory`);
+  }
+
+  if (!success)
+    throw new Error("The specified item could not be found in the keychain");
+}
+
 module.exports = {
   get,
   set,
   list,
+  remove,
 };
