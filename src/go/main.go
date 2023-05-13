@@ -214,7 +214,7 @@ func ListFileStore(fileSaveDir *C.char) **C.char {
 
 	ring, openErr := keyring.Open(keyring.Config{
 		AllowedBackends:  []keyring.BackendType{keyring.FileBackend},
-		FilePasswordFunc: keyring.FixedStringPrompt("password123"),
+		FilePasswordFunc: keyring.FixedStringPrompt(""),
 		FileDir:          saveDir,
 	})
 	if openErr != nil {
@@ -237,7 +237,7 @@ func DeleteFileStore(fileSaveDir *C.char, fileName *C.char, filePassword *C.char
 
 	ring, openErr := keyring.Open(keyring.Config{
 		AllowedBackends:  []keyring.BackendType{keyring.FileBackend},
-		FilePasswordFunc: keyring.FixedStringPrompt(C.GoString(filePassword)),
+		FilePasswordFunc: keyring.FixedStringPrompt(""),
 		FileDir:          saveDir,
 	})
 	if openErr != nil {
