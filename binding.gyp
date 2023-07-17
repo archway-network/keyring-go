@@ -22,7 +22,7 @@
       'conditions': [
         ['OS=="linux"', {
           "libraries": [
-            "<!(pwd)/keyring.so"
+            "<!(pwd)/keyring.a"
           ],
         }],
         ['OS=="win"', {
@@ -35,7 +35,7 @@
         }],
         ['OS=="mac"', {
           "libraries": [
-            "<!(pwd)/keyring.so"
+            "<!(pwd)/keyring.a"
           ],
         }]
       ]
