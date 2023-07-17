@@ -40,6 +40,7 @@ You must use **build-m1-mac.sh** to build the go module on m1 macs for m1 macs.
 2. Run this command to build Node module (i.e. the npm module): 
     - `npm run build:node`
     - Once build completes you should see a folder called **build** on root (folder contains all Node-Api related files)
+    - The prebuilt node binary for the platform of your machine will also be updated. All the prebuilt node binaries are inside the `prebuilds` directory. To make your changes available on all platforms, all the binaries should be updated.
 3. Tests:
     1. Testing bindings (i.e. core functionality): `npm run test`
         - If successful you should see something like *"Tests passed- everything looks OK!"*
