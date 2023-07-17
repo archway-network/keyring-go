@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const keyring = require('node-gyp-build')(path.join(__dirname, '..'))
+const keyring = require('node-gyp-build')(path.join(__dirname, '../..'))
 
 const { checkErrorInResponse, resolveTilde } = require("./utils");
 
