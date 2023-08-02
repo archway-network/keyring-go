@@ -1,6 +1,5 @@
 name: test-keyring-mac-x64
-on:
-  workflow_dispatch:
+on: pull_request
 jobs:
   build-native-node-module-on-mac:
     runs-on: macos-12
