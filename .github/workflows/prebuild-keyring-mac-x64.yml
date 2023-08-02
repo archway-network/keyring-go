@@ -1,5 +1,6 @@
 name: prebuild-keyring-mac-x64
-on: pull_request
+on:
+  workflow_dispatch:
 jobs:
   build-native-node-module-on-mac:
     runs-on: macos-12
