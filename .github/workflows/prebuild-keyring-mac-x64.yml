@@ -21,3 +21,6 @@ jobs:
       - uses: gr2m/create-or-update-pull-request-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          commit-message: "Add prebuilt library for mac amd64 architecture"
+
