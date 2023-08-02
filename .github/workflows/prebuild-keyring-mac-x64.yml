@@ -1,4 +1,4 @@
-name: test-keyring-mac-x64
+name: prebuild-keyring-mac-x64
 on: pull_request
 jobs:
   build-native-node-module-on-mac:
