@@ -23,5 +23,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          commit-message: "Add prebuilt library for mac amd64 architecture"
+          title: "Add prebuilt binary for mac amd64 architecture"
+          branch: "chore/add-mac-binary"
+          commit-message: "Add prebuilt binary for mac amd64 architecture"
 

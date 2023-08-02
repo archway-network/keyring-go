@@ -23,4 +23,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          commit-message: "Add prebuilt library for linux architecture"
+          title: "Add prebuilt binary for linux architecture"
+          branch: "chore/add-linux-binary"
+          commit-message: "Add prebuilt binary for linux architecture"
