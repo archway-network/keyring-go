@@ -1,5 +1,6 @@
-name: test-keyring-mac-x64
-on: [push]
+name: prebuild-keyring-mac-x64
+on:
+  workflow_dispatch:
 jobs:
   build-native-node-module-on-mac:
     runs-on: macos-12
@@ -18,3 +19,6 @@ jobs:
       - run: npm install --ignore-scripts
       - run: npm run build:go:amd64
       - run: npm run build:node
+      - uses: gr2m/create-or-update-pull-request-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
