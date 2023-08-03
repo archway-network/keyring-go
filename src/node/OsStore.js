@@ -1,4 +1,5 @@
-const keyring = require("../../build/Release/keyring-go");
+const path = require("path");
+const keyring = require('node-gyp-build')(path.join(__dirname, '../..'));
 
 const { checkErrorInResponse } = require("./utils");
 

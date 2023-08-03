@@ -8,13 +8,15 @@
     "@cosmjs/tendermint-rpc": "^0.30.1",
     "dotenv": "^16.0.3",
     "node-addon-api": "^1.1.0",
-    "node-gyp": "^9.3.1"
+    "node-gyp": "^9.3.1",
+    "node-gyp-build": "^4.6.0"
   },
   "scripts": {
-    "build:node": "node-gyp configure build --verbose",
+    "build:node": "prebuildify --napi",
     "build:go:m1": "sh build-m1-mac.sh",
     "build:go:amd64": "sh build-amd64-mac.sh",
     "build:go": "sh build.sh",
+    "install": "node-gyp-build",
     "test": "node --napi-modules ./test/test_binding.js",
     "test:file": "node --napi-modules ./test/binding_file.spec.js",
     "vitest": "vitest ./test/cosmjs.spec.mjs",
