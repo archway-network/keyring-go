@@ -21,7 +21,9 @@ function set(data, key = "_default_key_") {
 
 function get(key = "_default_key_") {
   try {
-    return InMemoryStore.get(key);
+    const result = InMemoryStore.get(key);
+    if (result === undefined) throw new Error("Key not found");
+    return result;
   } catch (err) {
     console.error(`Unexpected error when reading from memory`);
     throw err;

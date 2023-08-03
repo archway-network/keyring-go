@@ -21,12 +21,15 @@ Napi::String setOsStore(const Napi::CallbackInfo& info) {
   char *data = new char[dataArg.length() + 1];
   strcpy(data, dataArg.c_str());
 
-  SetOsStore(serviceName, keyName, data); 
+  char *goResult = SetOsStore(serviceName, keyName, data);
+  Napi::String result = Napi::String::New(env, goResult); 
 
   delete [] serviceName;
   delete [] keyName;
   delete [] data;
-  return Napi::String::New(env, "success");
+  delete [] goResult;
+
+  return result;
 }
 
 Napi::String getOsStore(const Napi::CallbackInfo& info) {
@@ -40,10 +43,12 @@ Napi::String getOsStore(const Napi::CallbackInfo& info) {
   char *keyName = new char[keyNameArg.length() + 1];
   strcpy(keyName, keyNameArg.c_str());
 
-  Napi::String result = Napi::String::New(env, GetOsStore(serviceName, keyName)); 
+  char *goResult = GetOsStore(serviceName, keyName);
+  Napi::String result = Napi::String::New(env, goResult); 
 
   delete [] serviceName;
   delete [] keyName;
+  delete [] goResult;
   return result;
 }
 
@@ -66,15 +71,14 @@ Napi::String setFileStore(const Napi::CallbackInfo& info) {
   char *filePassword = new char[filePasswordArg.length() + 1];
   strcpy(filePassword, filePasswordArg.c_str());
 
-  Napi::String result = Napi::String::New(env, SetFileStore(fileSaveDir, fileName, data, filePassword));
+  char *goResult = SetFileStore(fileSaveDir, fileName, data, filePassword);
+  Napi::String result = Napi::String::New(env, goResult);
   
   delete [] fileSaveDir;
   delete [] fileName;
   delete [] data;
+  delete [] goResult;
 
-  if (result == Napi::String::New(env, "")) {
-    return Napi::String::New(env, "success");
-  }
   return result;
 }
 
@@ -93,10 +97,12 @@ Napi::String getFileStore(const Napi::CallbackInfo& info) {
   char *filePassword = new char[filePasswordArg.length() + 1];
   strcpy(filePassword, filePasswordArg.c_str());
 
-  Napi::String result = Napi::String::New(env, GetFileStore(fileSaveDir, fileName, filePassword));
+  char *goResult = GetFileStore(fileSaveDir, fileName, filePassword);
+  Napi::String result = Napi::String::New(env, goResult);
 
   delete [] fileSaveDir;
   delete [] fileName;
+  delete [] goResult;
   return result;
 }
 
