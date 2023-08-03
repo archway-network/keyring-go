@@ -1,22 +1,40 @@
 const keyring = require("../../build/Release/keyring-go");
 
-const ERROR_PREFIX = "[-!ERROR-]: ";
+const { checkErrorInResponse } = require("./utils");
 
 function set(serviceName, keyName, data) {
   const result = keyring.setOsStore(serviceName, keyName, data);
-  if (result.toString().startsWith(ERROR_PREFIX)) throw new Error(result);
+
+  checkErrorInResponse(result);
 
   return result;
 }
 
 function get(serviceName, keyName) {
   const result = keyring.getOsStore(serviceName, keyName);
-  if (result.toString().startsWith(ERROR_PREFIX)) throw new Error(result);
+
+  checkErrorInResponse(result);
 
   return result;
+}
+
+function list(serviceName) {
+  const result = keyring.listOsStore(serviceName);
+
+  if (result?.length === 1) checkErrorInResponse(result[0]);
+
+  return result;
+}
+
+function remove(serviceName, keyName) {
+  const result = keyring.deleteOsStore(serviceName, keyName);
+
+  checkErrorInResponse(result);
 }
 
 module.exports = {
   get,
   set,
+  list,
+  remove,
 };

@@ -2,10 +2,10 @@
   "name": "@archwayhq/keyring-go",
   "main": "lib/binding.js",
   "dependencies": {
-    "@cosmjs/cosmwasm-stargate": "^0.29.5",
-    "@cosmjs/proto-signing": "^0.29.5",
-    "@cosmjs/stargate": "^0.29.5",
-    "@cosmjs/tendermint-rpc": "^0.29.5",
+    "@cosmjs/cosmwasm-stargate": "^0.30.1",
+    "@cosmjs/proto-signing": "^0.30.1",
+    "@cosmjs/stargate": "^0.30.1",
+    "@cosmjs/tendermint-rpc": "^0.30.1",
     "dotenv": "^16.0.3",
     "node-addon-api": "^1.1.0",
     "node-gyp": "^9.3.1"
