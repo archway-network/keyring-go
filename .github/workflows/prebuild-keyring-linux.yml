@@ -28,5 +28,6 @@ jobs:
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          git commit -a -m "Add prebuilt binary for linux architecture"
+          git add .
+          git commit -m "Add prebuilt binary for linux architecture"
           git push
