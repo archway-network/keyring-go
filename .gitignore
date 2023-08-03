@@ -1,7 +1,8 @@
 node_modules
 build
+.DS_Store
+keyring.a
 keyring.h
-keyring.so
 keyring.lib
 keyring.def
 .env
