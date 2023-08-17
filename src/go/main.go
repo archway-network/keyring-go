@@ -1,7 +1,12 @@
 package main
 
-//#include <stdio.h>
-//#include <stdlib.h>
+/*
+#include <errno.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stddef.h>
+#include <string.h>
+*/
 import "C"
 
 import (
@@ -206,6 +211,30 @@ func GetFileStore(fileSaveDir *C.char, fileName *C.char, filePassword *C.char) *
 
 	// Don't forget to free the memory of this pointer in the c++ part of the code
 	return result
+}
+
+//export GetFileStoreBytes
+func GetFileStoreBytes(fileSaveDir *C.char, fileName *C.char, filePassword *C.char) (unsafe.Pointer, C.size_t, *C.char) {
+	saveDir := C.GoString(fileSaveDir)
+
+	ring, openErr := keyring.Open(keyring.Config{
+		AllowedBackends:  []keyring.BackendType{keyring.FileBackend},
+		FilePasswordFunc: keyring.FixedStringPrompt(C.GoString(filePassword)),
+		FileDir:          saveDir,
+	})
+	if openErr != nil {
+		return nil, 0, formatError(openErr)
+	}
+
+	fileItem, getErr := ring.Get(C.GoString(fileName))
+	if getErr != nil {
+		return nil, 0, formatError(getErr)
+	}
+
+	size := len(fileItem.Data)
+
+	// Don't forget to free the memory of this pointer in the c++ part of the code
+	return C.CBytes(fileItem.Data), C.size_t(size), nil
 }
 
 //export ListFileStore

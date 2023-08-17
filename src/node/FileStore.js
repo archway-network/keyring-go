@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const keyring = require('node-gyp-build')(path.join(__dirname, '../..'))
+const keyring = require("node-gyp-build")(path.join(__dirname, "../.."));
 
 const { checkErrorInResponse, resolveTilde } = require("./utils");
 
@@ -20,6 +20,17 @@ function get(fileSaveDir, fileName, password) {
   return result;
 }
 
+/**
+ *
+ * @param {string} fileSaveDir
+ * @param {string} fileName
+ * @param {string} password
+ * @returns {Uint8Array} bytes of the file
+ */
+function getBytes(fileSaveDir, fileName, password) {
+  return keyring.getFileStoreBytes(fileSaveDir, fileName, password);
+}
+
 function list(fileSaveDir) {
   const result = keyring.listFileStore(fileSaveDir);
 
@@ -31,8 +42,7 @@ function list(fileSaveDir) {
 function remove(fileSaveDir, fileName) {
   const filePath = resolveTilde(path.join(fileSaveDir, fileName));
 
-  if (!fs.existsSync(filePath))
-    throw new Error("The specified item could not be found in the keychain");
+  if (!fs.existsSync(filePath)) throw new Error("The specified item could not be found in the keychain");
 
   const result = keyring.deleteFileStore(fileSaveDir, fileName);
 
@@ -41,6 +51,7 @@ function remove(fileSaveDir, fileName) {
 
 module.exports = {
   get,
+  getBytes,
   set,
   list,
   remove,
