@@ -23,7 +23,7 @@ func formatError(err error) *C.char {
 
 func formatArrayWithError(err error) **C.char {
 	result := C.malloc(C.size_t(2) * C.size_t(unsafe.Sizeof(uintptr(0))))
-	indexableResult := (*[1<<30 - 1]*C.char)(result)
+	indexableResult := (*[1 << 30]*C.char)(result)
 	indexableResult[0] = formatError(err)
 
 	// Don't forget to free the memory of this pointer in the c++ part of the code
@@ -32,7 +32,7 @@ func formatArrayWithError(err error) **C.char {
 
 func buildStringArray(list []string) **C.char {
 	result := C.malloc(C.size_t(len(list)+1) * C.size_t(unsafe.Sizeof(uintptr(0))))
-	indexableResult := (*[1<<30 - 1]*C.char)(result)
+	indexableResult := (*[1 << 30]*C.char)(result)
 	for i, auxValue := range list {
 		indexableResult[i] = (*C.char)(C.CString(string(auxValue)))
 	}

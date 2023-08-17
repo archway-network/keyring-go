@@ -240,24 +240,6 @@ assert.doesNotThrow(
 );
 console.log("");
 assert.doesNotThrow(
-  testSetFileStore,
-  undefined,
-  "testSetFileStore threw an expection"
-);
-console.log("");
-assert.doesNotThrow(
-  testSetFileStore,
-  undefined,
-  "testSetFileStore threw an expection"
-);
-console.log("");
-assert.doesNotThrow(
-  testSetFileStore,
-  undefined,
-  "testSetFileStore threw an expection"
-);
-console.log("");
-assert.doesNotThrow(
   testGetFileStore,
   undefined,
   "testGetFileStore threw an expection"
