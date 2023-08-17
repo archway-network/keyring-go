@@ -90,6 +90,7 @@ function testRemoveFileStore() {
   console.log("keyring.FileStore.remove returns:", result);
 
   const list = keyring.FileStore.list(fileSaveDir);
+  console.log('This is the list', list)
   assert(
     Array.isArray(list) && !list.includes(fileNameFile),
     "Unexpected value returned"
