@@ -56,6 +56,7 @@ const dataForFile = "hello world file 2";
 const filePassword = "password123";
 
 function testSetFileStore() {
+  console.log('SET START')
   const result = keyring.FileStore.set(
     fileSaveDir,
     fileNameFile,
@@ -68,6 +69,7 @@ function testSetFileStore() {
 }
 
 function testGetFileStore() {
+  console.log('GET START')
   const dataResult = keyring.FileStore.get(
     fileSaveDir,
     fileNameFile,
@@ -79,6 +81,7 @@ function testGetFileStore() {
 }
 
 function testListFileStore() {
+  console.log('LIST START')
   const result = keyring.FileStore.list(fileSaveDir);
   console.log("keyring.FileStore.list returns:", result);
   assert(
@@ -89,6 +92,7 @@ function testListFileStore() {
 }
 
 function testRemoveFileStore() {
+  console.log('REMOVE START')
   const result = keyring.FileStore.remove(fileSaveDir, fileNameFile);
   console.log("keyring.FileStore.remove returns:", result);
 
