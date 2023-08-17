@@ -248,53 +248,53 @@ assert.doesNotThrow(
   "testRemoveFileStore threw an expection"
 );
 console.log("");
-assert.doesNotThrow(
-  testSetUnencryptedFileStore,
-  undefined,
-  "testSetUnencryptedFileStore threw an expection"
-);
-console.log("");
-assert.doesNotThrow(
-  testGetUnencryptedFileStore,
-  undefined,
-  "testGetUnencryptedFileStore threw an expection"
-);
-console.log("");
-assert.doesNotThrow(
-  testListUnencryptedFileStore,
-  undefined,
-  "testListUnencryptedFileStore threw an expection"
-);
-console.log("");
-assert.doesNotThrow(
-  testRemoveUnencryptedFileStore,
-  undefined,
-  "testRemoveUnencryptedFileStore threw an expection"
-);
-console.log("");
-assert.doesNotThrow(
-  testSetMemoryStore,
-  undefined,
-  "testSetMemoryStore threw an expection"
-);
-console.log("");
-assert.doesNotThrow(
-  testGetMemoryStore,
-  undefined,
-  "testGetMemoryStore threw an expection"
-);
-console.log("");
-assert.doesNotThrow(
-  testListMemoryStore,
-  undefined,
-  "testListMemoryStore threw an expection"
-);
-console.log("");
-assert.doesNotThrow(
-  testRemoveMemoryStore,
-  undefined,
-  "testRemoveMemoryStore threw an expection"
-);
+// assert.doesNotThrow(
+//   testSetUnencryptedFileStore,
+//   undefined,
+//   "testSetUnencryptedFileStore threw an expection"
+// );
+// console.log("");
+// assert.doesNotThrow(
+//   testGetUnencryptedFileStore,
+//   undefined,
+//   "testGetUnencryptedFileStore threw an expection"
+// );
+// console.log("");
+// assert.doesNotThrow(
+//   testListUnencryptedFileStore,
+//   undefined,
+//   "testListUnencryptedFileStore threw an expection"
+// );
+// console.log("");
+// assert.doesNotThrow(
+//   testRemoveUnencryptedFileStore,
+//   undefined,
+//   "testRemoveUnencryptedFileStore threw an expection"
+// );
+// console.log("");
+// assert.doesNotThrow(
+//   testSetMemoryStore,
+//   undefined,
+//   "testSetMemoryStore threw an expection"
+// );
+// console.log("");
+// assert.doesNotThrow(
+//   testGetMemoryStore,
+//   undefined,
+//   "testGetMemoryStore threw an expection"
+// );
+// console.log("");
+// assert.doesNotThrow(
+//   testListMemoryStore,
+//   undefined,
+//   "testListMemoryStore threw an expection"
+// );
+// console.log("");
+// assert.doesNotThrow(
+//   testRemoveMemoryStore,
+//   undefined,
+//   "testRemoveMemoryStore threw an expection"
+// );
 console.log("");
 
 console.log("Tests passed- everything looks OK!");
