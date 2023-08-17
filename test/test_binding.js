@@ -64,6 +64,7 @@ function testSetFileStore() {
   );
   console.log("keyring.FileStore.set returns:", result);
   assert.strictEqual(result, success, "Unexpected value returned");
+  console.log('SET SUCCESS')
 }
 
 function testGetFileStore() {
@@ -74,6 +75,7 @@ function testGetFileStore() {
   );
   console.log("keyring.FileStore.get returns:", dataResult);
   assert.strictEqual(dataResult, dataForFile, "Unexpected value returned");
+  console.log('GET SUCCESS')
 }
 
 function testListFileStore() {
@@ -83,6 +85,7 @@ function testListFileStore() {
     Array.isArray(result) && result.includes(fileNameFile),
     "Unexpected value returned"
   );
+  console.log('LIST SUCCESS')
 }
 
 function testRemoveFileStore() {
@@ -95,6 +98,7 @@ function testRemoveFileStore() {
     Array.isArray(list) && !list.includes(fileNameFile),
     "Unexpected value returned"
   );
+  console.log('REMOVE SUCCESS')
 }
 
 // Unencrypted File Store tests
