@@ -1,5 +1,7 @@
 #!/bin/bash
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
+
 set -xeuo pipefail
 
 # M1 Macs need to force building using the Go architecture `arm64` (the default is `amd64`).
@@ -12,5 +14,9 @@ os=$(uname -s | tr '[:upper:]' '[:lower:]')
 arch=$(uname -m | tr '[:upper:]' '[:lower:]')
 [[ "${arch}" = "x86_64" ]] && arch="amd64"
 
-CGO_ENABLED=1 GOOS="${os}" GOARCH="${arch}" \
-  go build -v -trimpath -buildmode=c-archive -ldflags '-w -s -extldflags "-lresolv"' -o ./build/keyring.a ./src/go
+CGO_ENABLED=1 GOOS="${os}" GOARCH="${arch}" GOHOSTARCH="${arch}" go build -v \
+  -trimpath \
+  -buildmode=c-archive \
+  -ldflags '-w -s -extldflags "-lresolv"' \
+  -o "${SCRIPT_DIR}"/keyring.a \
+  "${SCRIPT_DIR}"/src/go
