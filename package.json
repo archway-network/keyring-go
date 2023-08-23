@@ -21,6 +21,6 @@
     "build:cgo": "./build.sh",
     "build:pre": "prebuildify --napi --strip",
     "install": "node-gyp-build",
-    "test": "node --napi-modules ./test/core/*.js"
+    "test": "node --napi-modules ./test/*.js"
   }
 }
