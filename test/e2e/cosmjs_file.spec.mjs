@@ -1,7 +1,8 @@
-import { expect, it, describe } from "vitest";
-import { FileStore } from "../lib/binding.js";
-import { generateKeyAndSendFunds } from "./fixtures";
 import dotenv from "dotenv";
+import { describe, expect, it } from "vitest";
+import { generateKeyAndSendFunds } from "../fixtures.js";
+import { FileStore } from "../src/node";
+
 dotenv.config();
 
 const timeout = 10000;

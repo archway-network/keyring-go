@@ -6,14 +6,14 @@
       'include_dirs': ["<!@(node -p \"require('node-addon-api').include\")"],
       'dependencies': ["<!(node -p \"require('node-addon-api').gyp\")"],
       'cflags!': [ '-fno-exceptions' ],
-      'cflags_cc!': [ '-fno-exceptions' ],      
+      'cflags_cc!': [ '-fno-exceptions' ],
       'xcode_settings': {
         'GCC_ENABLE_CPP_EXCEPTIONS': 'YES',
         'CLANG_CXX_LIBRARY': 'libc++',
         'MACOSX_DEPLOYMENT_TARGET': '12'
       },
       'msvs_settings': {
-        'VCCLCompilerTool': { 
+        'VCCLCompilerTool': {
           'ExceptionHandling': 1,
           'RuntimeLibrary': 2,
           'AdditionalOptions': [ '-std:c++14' ]
@@ -22,7 +22,7 @@
       'conditions': [
         ['OS=="linux"', {
           "libraries": [
-            "<!(pwd)/keyring.a"
+            "<!(pwd)/build/keyring.a"
           ],
         }],
         ['OS=="win"', {
@@ -30,12 +30,12 @@
             '_MSC_VER=1935',
           ],
           "libraries": [
-            "<!(cd)/keyring.lib"
+            "<!(cd)/build/keyring.lib"
           ],
         }],
         ['OS=="mac"', {
           "libraries": [
-            "<!(pwd)/keyring.a"
+            "<!(pwd)/build/keyring.a"
           ],
         }]
       ]

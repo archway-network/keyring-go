@@ -1,27 +1,26 @@
 {
   "name": "@archwayhq/keyring-go",
-  "version": "1.0.0",
-  "description": "testing napi",
+  "version": "0.1.0",
+  "description": "A Node.js native addon for the Cosmos Keyring Go library to store values using the OS keyring or the filesystem",
   "author": "Archway Network (https://archway.io)",
   "license": "Apache-2.0",
-  "main": "lib/binding.js",
+  "main": "src/node/index.js",
   "gypfile": true,
   "dependencies": {
+    "node-addon-api": "^1.1.0",
+    "node-gyp": "^9.3.1"
+  },
+  "devDependencies": {
     "@cosmjs/cosmwasm-stargate": "^0.31.0",
     "@cosmjs/proto-signing": "^0.31.0",
     "@cosmjs/stargate": "^0.31.0",
     "@cosmjs/tendermint-rpc": "^0.31.0",
     "@tendermint/amino-js": "^0.6.2",
     "cosmjs-types": "^0.8.0",
-    "node-addon-api": "^1.1.0",
-    "node-gyp": "^9.3.1",
-    "openpgp": "^5.9.0"
-  },
-  "devDependencies": {
     "dotenv": "^16.0.3",
     "node-gyp-build": "^4.6.0",
     "prebuildify": "^5.0.1",
-    "ts-node": "^10.9.1",
+    "rimraf": "^5.0.1",
     "vitest": "^0.28.5"
   },
   "resolutions": {
@@ -29,16 +28,13 @@
     "cosmjs-types": "^0.8.0"
   },
   "scripts": {
-    "build": "npm run build:go && npm run build:node && npm run gyp:build",
+    "clean": "rimraf ./build",
+    "build": "npm run build:cgo && npm run build:node && npm run build:gyp",
+    "build:cgo": "./build.sh",
     "build:node": "prebuildify --napi",
-    "build:go": "./build.sh",
-    "build:go:m1": "sh build-m1-mac.sh",
-    "build:go:amd64": "sh build-amd64-mac.sh",
-    "gyp:build": "node-gyp-build",
-    "test": "node --napi-modules ./test/test_binding.js",
-    "test:file": "node --napi-modules ./test/binding_file.spec.js",
-    "vitest": "vitest ./test/cosmjs.spec.mjs",
-    "vitest:file": "vitest ./test/cosmjs_file.spec.mjs",
-    "test:amino": "node --napi-modules testkey1.mjs"
+    "build:gyp": "node-gyp-build",
+    "test": "npm run test:core && npm run test:e2e",
+    "test:core": "node --napi-modules ./test/core/*.js",
+    "test:e2e": "vitest ./test/e2e/*.mjs"
   }
 }

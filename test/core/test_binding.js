@@ -1,4 +1,4 @@
-const keyring = require("../lib/binding.js");
+const keyring = require("../src/node");
 const assert = require("assert");
 
 // OS Store tests

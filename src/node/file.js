@@ -1,5 +1,5 @@
-const fs = require("fs");
-const path = require("path");
+const fs = require("node:fs");
+const path = require("node:path");
 const keyring = require("node-gyp-build")(path.join(__dirname, "../.."));
 
 const { checkErrorInResponse, resolveTilde } = require("./utils");
@@ -12,6 +12,14 @@ function set(fileSaveDir, fileName, data, password) {
   return result;
 }
 
+/**
+ * Returns a `String` with the unencrypted file content.
+ *
+ * @param {string} fileSaveDir
+ * @param {string} fileName
+ * @param {string} password
+ * @returns {Uint8Array} unencrypted bytes of the file
+ */
 function get(fileSaveDir, fileName, password) {
   const result = keyring.getFileStore(fileSaveDir, fileName, password);
 
@@ -21,11 +29,12 @@ function get(fileSaveDir, fileName, password) {
 }
 
 /**
+ * Returns an unencrypted `Uint8Array` of the file content.
  *
  * @param {string} fileSaveDir
  * @param {string} fileName
  * @param {string} password
- * @returns {Uint8Array} bytes of the file
+ * @returns {Uint8Array} unencrypted bytes of the file
  */
 function getBytes(fileSaveDir, fileName, password) {
   return keyring.getFileStoreBytes(fileSaveDir, fileName, password);
