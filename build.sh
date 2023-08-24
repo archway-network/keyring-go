@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
+set -xeu
 
-set -xeuo pipefail
+SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd -P)
 
 # M1 Macs need to force building using the Go architecture `arm64` (the default is `amd64`).
 
@@ -10,13 +10,26 @@ set -xeuo pipefail
 # current platform default. So if the current **GOARCH=amd64** and one tries to build for arm64, it will fail because
 # **CGO_ENABLED** is silently set to `0`.
 
-os=$(uname -s | tr '[:upper:]' '[:lower:]')
-arch=$(uname -m | tr '[:upper:]' '[:lower:]')
-[[ "${arch}" = "x86_64" ]] && arch="amd64"
+GOOS=$(uname -s | tr '[:upper:]' '[:lower:]')
+export GOOS
+GOARCH=${1:-$(uname -m | tr '[:upper:]' '[:lower:]' | sed -e 's/^x86_64$/amd64/' -e 's/^aarch64$/arm64/')}
+export GOARCH
 
-CGO_ENABLED=1 GOOS="${os}" GOARCH="${arch}" GOHOSTARCH="${arch}" go build -v \
+ARCH_DIR="${GOOS}-${GOARCH}"
+OUT_DIR="${SCRIPT_DIR}/out/${ARCH_DIR}"
+mkdir -p "${OUT_DIR}"
+
+CGO_ENABLED=1 go build -v \
   -trimpath \
   -buildmode=c-archive \
   -ldflags '-w -s -extldflags "-lresolv"' \
-  -o "${SCRIPT_DIR}"/keyring.a \
+  -o "${OUT_DIR}"/keyring.a \
   "${SCRIPT_DIR}"/src/go
+
+ln -sf "${ARCH_DIR}"/keyring.a "${OUT_DIR}"/../keyring.a
+ln -sf "${ARCH_DIR}"/keyring.h "${OUT_DIR}"/../keyring.h
+
+# To generate a universal binary for macOS, use the following commands:
+# mkdir -p out/darwin-universal
+# lipo -create -output out/darwin-universal/keyring.a out/darwin-amd64/keyring.a out/darwin-arm64/keyring.a
+# lipo -archs out/darwin-universal/keyring.a

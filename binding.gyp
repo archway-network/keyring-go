@@ -22,7 +22,12 @@
       'conditions': [
         ['OS=="linux"', {
           "libraries": [
-            "<!(pwd)/keyring.a"
+            "<!(pwd)/out/keyring.a"
+          ],
+        }],
+        ['OS=="mac"', {
+          "libraries": [
+            "<!(pwd)/out/keyring.a"
           ],
         }],
         ['OS=="win"', {
@@ -30,12 +35,7 @@
             '_MSC_VER=1935',
           ],
           "libraries": [
-            "<!(cd)/keyring.lib"
-          ],
-        }],
-        ['OS=="mac"', {
-          "libraries": [
-            "<!(pwd)/keyring.a"
+            "<!(cd)/out/keyring.lib"
           ],
         }]
       ]

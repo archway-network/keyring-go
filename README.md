@@ -7,8 +7,11 @@ Keyring Go library to store values using the OS keyring or the filesystem.
 
 The project uses the recommended tooling for NAPI projects:
 
-- Project creation: **Yeoman** and **generator-napi-module**.
-- Built with C++ to expose Go API to Javascript using **node-addon-api**.
+- Built with C++ to expose Go API to Javascript using the
+  [node-addon-api](https://github.com/nodejs/node-addon-api).
+- Uses the [node-gyp](https://github.com/nodejs/node-gyp) build tool.
+- Uses [prebuildify](https://github.com/prebuild/prebuildify) to prebuild the
+  binaries for your platform.
 
 Folder structure:
 
@@ -31,13 +34,21 @@ go --version
 python --version
 ```
 
-On Mac:
+#### On Mac
+
+Install the `XCode Command Line Tools`:
+
+```bash
+xcode-select --install
+```
+
+Which will install `clang`:
 
 ```bash
 cc --version
 ```
 
-On Linux:
+#### On Linux
 
 ```bash
 gcc --version
@@ -52,49 +63,47 @@ gcc --version
 npm install --ignore-scripts
 ```
 
+> You should use the `--ignore-scripts` flag to avoid running the install script.
+
 ### Build
-
-The build process uses `cgo` to compile the Go module into a static C library
-and [node-gyp](https://nodejs.org/api/addons.html) to make the C++ addon
-available on Node.js via NAPI.
-
-To build all modules, run:
 
 ```bash
 npm run build
 ```
 
-#### Build the Go package to C using `cgo`
+The build process uses [`cgo`](https://pkg.go.dev/cmd/cgo) to compile the Go
+module into a static C library and [node-gyp](https://nodejs.org/api/addons.html)
+to make the C++ addon available on Node.js via NAPI.
 
-```bash
-npm run build:cgo
-```
-
-This job runs the script `build.sh` to automatically handle all environment
-variables for your computer architecture.
-
-Once the build is complete, you should see the files `keyring.h` and `keyring.a`
-in the repository root.
-
-> [!NOTE]
-> After modifying the C++ or Go code, delete the output files before building again.
-
-#### Pre-build the Node.js module
-
-```bash
-npm run build:pre
-```
-
-This command uses [prebuildify](https://github.com/prebuild/prebuildify) to
-prebuild the binaries for your platform. All the prebuilt node binaries are
-bundled with the package inside the `prebuilds` folder.
+To avoid compiling the package on the user's machine, the script uses
+[prebuildify](https://github.com/prebuild/prebuildify) to prebuild the binaries
+for specific platforms. All the prebuilt node binaries are bundled with the
+package inside the `prebuilds` folder.
 
 When installing the package, the install script will check if a compatible
 prebuild is bundled for the current platform. If it is, it will be used instead
 of building from source.
 
-Once the build completes, you should see the folder `build` in the repository
+Once the build completes, you should see the `build` folder in the repository
 root containing all NAPI-related files.
+
+The `npm run build` script will automatically run the `build.sh` script to build
+the Go module to a C library before producing the prebuild binary.
+
+> [!NOTE]
+> On macOS, it's possible to build for both architectures (`x64` and `arm64`).
+> For that, you will need to run `npm run build:x64` and then `npm run build:arm64`.
+
+#### Build the Go package to C using `cgo`
+
+To build only the Go module for your current platform and architecture, run:
+
+```bash
+./build.sh
+```
+
+Once the build is complete, you should see the files `keyring.h` and `keyring.a`
+in the `out` folder.
 
 ### Test
 

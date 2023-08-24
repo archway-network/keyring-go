@@ -8,18 +8,18 @@
   "gypfile": true,
   "dependencies": {
     "node-addon-api": "^7.0.0",
-    "node-gyp-build": "^4.6.0",
-    "node-gyp": "^9.4.0"
+    "node-gyp-build": "^4.6.0"
   },
   "devDependencies": {
+    "node-gyp": "^9.4.0",
     "prebuildify": "^5.0.1",
     "rimraf": "^5.0.1"
   },
   "scripts": {
-    "clean": "rimraf ./build",
-    "build": "npm run build:cgo && npm run build:pre",
-    "build:cgo": "./build.sh",
-    "build:pre": "prebuildify --napi --strip",
+    "clean": "rimraf ./build ./out",
+    "build": "prebuildify --napi --strip --preinstall=./build.sh",
+    "build:x64": "prebuildify --napi --strip --preinstall='./build.sh amd64' --arch=x64",
+    "build:arm64": "prebuildify --napi --strip --preinstall='./build.sh arm64' --arch=arm64",
     "install": "node-gyp-build",
     "test": "node --napi-modules ./test/*.js"
   }
