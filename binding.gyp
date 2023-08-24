@@ -20,24 +20,26 @@
         },
       },
       'conditions': [
-        ['OS=="linux"', {
+        ['OS=="linux" and target_arch=="x64"', {
           "libraries": [
-            "<!(pwd)/out/keyring.a"
+            "<!(pwd)/out/linux-amd64/keyring.a"
           ],
         }],
-        ['OS=="mac"', {
+        ['OS=="linux" and target_arch=="arm64"', {
           "libraries": [
-            "<!(pwd)/out/keyring.a"
+            "<!(pwd)/out/linux-arm64/keyring.a"
           ],
         }],
-        ['OS=="win"', {
-          'defines': [
-            '_MSC_VER=1935',
-          ],
+        ['OS=="mac" and target_arch=="x64"', {
           "libraries": [
-            "<!(cd)/out/keyring.lib"
+            "<!(pwd)/out/darwin-amd64/keyring.a"
           ],
-        }]
+        }],
+        ['OS=="mac" and target_arch=="arm64"', {
+          "libraries": [
+            "<!(pwd)/out/darwin-arm64/keyring.a"
+          ],
+        }],
       ]
     }
   ]
