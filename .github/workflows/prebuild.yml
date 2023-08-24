@@ -37,12 +37,11 @@ jobs:
         run: npm install --ignore-scripts
       - name: Build
         run: |
-          if [[ "$RUNNER_OS" == "macOS" ]]; then
-            # cross-compile to x64 last so we don't break the tests
-            npm run build:arm64 && npm run build:x64
-          else
+          # if [[ "$RUNNER_OS" == "macOS" ]]; then
+          #   npm run build:x64 && npm run build:arm64
+          # else
             npm run build
-          fi
+          # fi
       - name: Test
         run: npm test
       - name: Commit pre-built binary
