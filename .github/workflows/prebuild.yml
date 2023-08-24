@@ -41,9 +41,8 @@ jobs:
             npm run build:arm64 && npm run build:x64
           else
             npm run build
+            npm test
           fi
-      - name: Test
-        run: npm test
       - name: Commit pre-built binary
         run: |
           if [ -n "$(git status --porcelain -- prebuilds)" ]; then
