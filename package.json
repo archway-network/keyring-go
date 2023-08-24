@@ -2,8 +2,17 @@
   "name": "@archwayhq/keyring-go",
   "version": "0.1.0",
   "description": "A Node.js native addon for the Cosmos Keyring Go library to store values using the OS keyring or the filesystem",
+  "homepage": "https://docs.archway.io",
+  "repository": "github:archway-network/keyring-go",
   "author": "Archway Network (https://archway.io)",
+  "contributors": [
+    "Elias Poroma (https://github.com/eliasmpw)",
+    "Augusto Elesbão (https://github.com/aelesbao)"
+  ],
   "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/archway-network/keyring-go/issues"
+  },
   "main": "src/node/index.js",
   "gypfile": true,
   "dependencies": {
@@ -22,5 +31,11 @@
     "build:arm64": "prebuildify --napi --strip --preinstall='./build.sh arm64' --arch=arm64",
     "install": "node-gyp-build",
     "test": "node --napi-modules ./test/*.js"
-  }
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "os": [
+    "!win32"
+  ]
 }
