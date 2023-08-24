@@ -1,4 +1,4 @@
-const { FileStore } = require("../lib/binding.js");
+const { FileStore } = require("../src/node");
 const assert = require("assert");
 
 assert(FileStore.set, "FileStore.set is undefined");
@@ -23,12 +23,11 @@ function testSetFileStore() {
 }
 
 function testGetFileStore() {
-    let dataResult
-  try {dataResult = FileStore.get(fileSaveDir, fileNameFile, filePassword);
-  }
-  catch(e) {
-    console.log(e, '\n\n',e.message)
-
+  let dataResult;
+  try {
+    dataResult = FileStore.get(fileSaveDir, fileNameFile, filePassword);
+  } catch (e) {
+    console.log(e, "\n\n", e.message);
   }
   console.log("FileStore.get returns:", dataResult);
   assert.strictEqual(dataResult, dataForFile, "Unexpected value returned");

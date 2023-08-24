@@ -6,38 +6,40 @@
       'include_dirs': ["<!@(node -p \"require('node-addon-api').include\")"],
       'dependencies': ["<!(node -p \"require('node-addon-api').gyp\")"],
       'cflags!': [ '-fno-exceptions' ],
-      'cflags_cc!': [ '-fno-exceptions' ],      
+      'cflags_cc!': [ '-fno-exceptions' ],
       'xcode_settings': {
         'GCC_ENABLE_CPP_EXCEPTIONS': 'YES',
         'CLANG_CXX_LIBRARY': 'libc++',
         'MACOSX_DEPLOYMENT_TARGET': '12'
       },
       'msvs_settings': {
-        'VCCLCompilerTool': { 
+        'VCCLCompilerTool': {
           'ExceptionHandling': 1,
           'RuntimeLibrary': 2,
           'AdditionalOptions': [ '-std:c++14' ]
         },
       },
       'conditions': [
-        ['OS=="linux"', {
+        ['OS=="linux" and target_arch=="x64"', {
           "libraries": [
-            "<!(pwd)/keyring.a"
+            "<!(pwd)/out/linux-amd64/keyring.a"
           ],
         }],
-        ['OS=="win"', {
-          'defines': [
-            '_MSC_VER=1935',
-          ],
+        ['OS=="linux" and target_arch=="arm64"', {
           "libraries": [
-            "<!(cd)/keyring.lib"
+            "<!(pwd)/out/linux-arm64/keyring.a"
           ],
         }],
-        ['OS=="mac"', {
+        ['OS=="mac" and target_arch=="x64"', {
           "libraries": [
-            "<!(pwd)/keyring.a"
+            "<!(pwd)/out/darwin-amd64/keyring.a"
           ],
-        }]
+        }],
+        ['OS=="mac" and target_arch=="arm64"', {
+          "libraries": [
+            "<!(pwd)/out/darwin-arm64/keyring.a"
+          ],
+        }],
       ]
     }
   ]
