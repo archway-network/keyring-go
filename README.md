@@ -93,6 +93,8 @@ the Go module to a C library before producing the prebuild binary.
 > [!NOTE]
 > On macOS, it's possible to build for both architectures (`x64` and `arm64`).
 > For that, you will need to run `npm run build:x64` and then `npm run build:arm64`.
+> Be aware that you should execute run `npm run build` later. Otherwise, the generated
+> binaries might not be compatible with your current platform.
 
 #### Build the Go package to C using `cgo`
 
