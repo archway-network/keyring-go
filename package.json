@@ -13,6 +13,10 @@
   "bugs": {
     "url": "https://github.com/archway-network/keyring-go/issues"
   },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
   "main": "src/node/index.js",
   "gypfile": true,
   "dependencies": {
