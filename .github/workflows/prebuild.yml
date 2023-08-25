@@ -44,6 +44,7 @@ jobs:
             npm test
           fi
       - name: Commit pre-built binary
+        if: github.event_name == 'pull_request'
         run: |
           if [ -n "$(git status --porcelain -- prebuilds)" ]; then
             git config --global user.name "GitHub Actions"
