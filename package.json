@@ -34,7 +34,10 @@
     "build:x64": "prebuildify --napi --strip --preinstall='./build.sh amd64' --arch=x64",
     "build:arm64": "prebuildify --napi --strip --preinstall='./build.sh arm64' --arch=arm64",
     "install": "node-gyp-build",
-    "test": "node --napi-modules ./test/*.js"
+    "test:file": "node --napi-modules ./test/binding_file.spec.js",
+    "test:os": "node --napi-modules ./test/binding_os.spec.js",
+    "test:unencryptedFile": "node --napi-modules ./test/binding_unencryptedFile.spec.js",
+    "test": "npm run test:file && npm run test:os && npm run test:unencryptedFile"
   },
   "engines": {
     "node": ">=16"
