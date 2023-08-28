@@ -34,7 +34,7 @@
     "build:x64": "prebuildify --napi --strip --preinstall='./build.sh amd64' --arch=x64",
     "build:arm64": "prebuildify --napi --strip --preinstall='./build.sh arm64' --arch=arm64",
     "install": "node-gyp-build",
-    "test": "node --napi-modules ./test/*.js"
+    "test": "node --napi-modules ./test/index.js"
   },
   "engines": {
     "node": ">=16"
