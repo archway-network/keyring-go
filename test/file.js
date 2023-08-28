@@ -61,25 +61,21 @@ function testRemoveFileStore(context) {
 }
 
 function run(context) {
-  console.log("");
   assert.doesNotThrow(
     testSetFileStore(context),
     undefined,
     "testSetFileStore threw an expection"
   );
-  console.log("");
   assert.doesNotThrow(
     testGetFileStore(context),
     undefined,
     "testGetFileStore threw an expection"
   );
-  console.log("");
   assert.doesNotThrow(
     testListFileStore(context),
     undefined,
     "testListFileStore threw an expection"
   );
-  console.log("");
   assert.doesNotThrow(
     testRemoveFileStore(context),
     undefined,

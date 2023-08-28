@@ -73,25 +73,21 @@ function testRemoveUnencryptedFileStore(context) {
 }
 
 function run(context) {
-  console.log("");
   assert.doesNotThrow(
     testSetUnencryptedFileStore(context),
     undefined,
     "testSetUnencryptedFileStore threw an expection"
   );
-  console.log("");
   assert.doesNotThrow(
     testGetUnencryptedFileStore(context),
     undefined,
     "testGetUnencryptedFileStore threw an expection"
   );
-  console.log("");
   assert.doesNotThrow(
     testListUnencryptedFileStore(context),
     undefined,
     "testListUnencryptedFileStore threw an expection"
   );
-  console.log("");
   assert.doesNotThrow(
     testRemoveUnencryptedFileStore(context),
     undefined,

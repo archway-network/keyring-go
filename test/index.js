@@ -6,9 +6,10 @@ const context = {
   tmpDir: fs.mkdtempSync(path.join(os.tmpdir(), "archway-keyring-test-")),
 };
 
-["file", "os", "unencrypted"].forEach((test) =>
-  require(`./${test}`).run(context)
-);
+["file", "os", "unencrypted"].forEach((test) => {
+  console.log(`\n=> Testing ${test}`);
+  require(`./${test}`).run(context);
+});
 
 try {
   fs.rmSync(context.tmpDir, { recursive: true });
@@ -18,5 +19,4 @@ try {
   );
 }
 
-console.log("");
-console.log("All tests passed!");
+console.log("\nAll tests passed!");

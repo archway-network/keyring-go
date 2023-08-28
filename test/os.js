@@ -52,25 +52,21 @@ function testRemoveOsStore(_context) {
 }
 
 function run(context) {
-  console.log("");
   assert.doesNotThrow(
     testSetOsStore(context),
     undefined,
     "testSetOsStore threw an expection"
   );
-  console.log("");
   assert.doesNotThrow(
     testGetOsStore(context),
     undefined,
     "testGetOsStore threw an expection"
   );
-  console.log("");
   assert.doesNotThrow(
     testListOsStore(context),
     undefined,
     "testListOsStore threw an expection"
   );
-  console.log("");
   assert.doesNotThrow(
     testRemoveOsStore(context),
     undefined,
