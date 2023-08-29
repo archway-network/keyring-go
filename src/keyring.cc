@@ -73,8 +73,9 @@ Napi::Array listOsStore(const Napi::CallbackInfo& info) {
   strcpy(serviceName, serviceNameArg.c_str());
 
   char **goResult = ListOsStore(serviceName);
-  size_t i, resultSize;
-  for (size_t i = resultSize = 0; goResult[i] != NULL; i++)
+  int i, resultSize;
+
+  for (int i = resultSize = 0; strcmp(goResult[i], "") != 0; i++)
     resultSize += 1;
 
   Napi::Array result = Napi::Array::New(env, resultSize);
@@ -85,7 +86,7 @@ Napi::Array listOsStore(const Napi::CallbackInfo& info) {
   }
 
   delete [] serviceName;
-  for (i = 0; i < resultSize; i++)
+  for (i = 0; i <= resultSize; i++)
     free(goResult[i]);
   free(goResult);
 
@@ -207,8 +208,9 @@ Napi::Array listFileStore(const Napi::CallbackInfo& info) {
   strcpy(fileSaveDir, fileSaveDirArg.c_str());
 
   char **goResult = ListFileStore(fileSaveDir);
-  size_t i, resultSize;
-  for (size_t i = resultSize = 0; goResult[i] != NULL; i++)
+  int i, resultSize;
+
+  for (int i = resultSize = 0; strcmp(goResult[i], "") != 0; i++)
     resultSize += 1;
 
   Napi::Array result = Napi::Array::New(env, resultSize);
@@ -219,7 +221,7 @@ Napi::Array listFileStore(const Napi::CallbackInfo& info) {
   }
 
   delete [] fileSaveDir;
-  for (size_t i = 0; i < resultSize; i++)
+  for (int i = 0; i <= resultSize; i++)
     free(goResult[i]);
   free (goResult);
 
