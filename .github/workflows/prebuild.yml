@@ -36,9 +36,12 @@ jobs:
       - name: Install
         run: npm install --ignore-scripts
       - name: Build
+        env:
+          SKIP_OS: true
         run: |
           if [[ "$RUNNER_OS" == "macOS" ]]; then
             npm run build:arm64 && npm run build:x64
+            npm test
           else
             npm run build
             npm test
