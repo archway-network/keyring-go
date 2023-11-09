@@ -2,11 +2,9 @@ name: Pre-build binaries
 
 on:
   push:
-    branches:
-      - main
+    branches: ["**"]
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
 permissions:
   contents: write
@@ -44,7 +42,7 @@ jobs:
             npm test
           fi
       - name: Commit pre-built binary
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'push'
         run: |
           if [ -n "$(git status --porcelain -- prebuilds)" ]; then
             git config --global user.name "GitHub Actions"
