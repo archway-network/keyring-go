@@ -1,6 +1,6 @@
 {
   "name": "@archwayhq/keyring-go",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A Node.js native addon for the Cosmos Keyring Go library to store values using the OS keyring or the filesystem",
   "homepage": "https://docs.archway.io",
   "repository": "github:archway-network/keyring-go",
