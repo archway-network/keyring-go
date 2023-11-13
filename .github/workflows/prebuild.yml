@@ -2,11 +2,9 @@ name: Pre-build binaries
 
 on:
   push:
-    branches:
-      - main
+    branches: ["**"]
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
 permissions:
   contents: write
@@ -30,9 +28,9 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: "3.10"
-      - uses: actions/setup-go@v3
+      - uses: actions/setup-go@v4
         with:
-          go-version: "1.20.1"
+          go-version: "1.19.13"
       - name: Install
         run: npm install --ignore-scripts
       - name: Build
@@ -44,7 +42,7 @@ jobs:
             npm test
           fi
       - name: Commit pre-built binary
-        if: github.event_name == 'pull_request'
+        if: (github.event_name == 'pull_request' || (github.event_name == 'push' && contains(github.event.head_commit.message, 'CI=pre-build')))
         run: |
           if [ -n "$(git status --porcelain -- prebuilds)" ]; then
             git config --global user.name "GitHub Actions"
