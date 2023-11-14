@@ -10,9 +10,8 @@ SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd -P)
 # current platform default. So if the current **GOARCH=amd64** and one tries to build for arm64, it will fail because
 # **CGO_ENABLED** is silently set to `0`.
 
-GOOS=$(uname -s | tr '[:upper:]' '[:lower:]')
-export GOOS
-GOARCH=${1:-$(uname -m | tr '[:upper:]' '[:lower:]' | sed -e 's/^x86_64$/amd64/' -e 's/^aarch64$/arm64/')}
+GOOS="$(go env GOOS)"
+GOARCH="${1:-$(go env GOARCH)}"
 export GOARCH
 
 ARCH_DIR="${GOOS}-${GOARCH}"
