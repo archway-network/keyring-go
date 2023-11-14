@@ -21,10 +21,10 @@
   "gypfile": true,
   "dependencies": {
     "node-addon-api": "^7.0.0",
+    "node-gyp": "^9.4.0",
     "node-gyp-build": "^4.6.0"
   },
   "devDependencies": {
-    "node-gyp": "^9.4.0",
     "prebuildify": "^5.0.1",
     "rimraf": "^5.0.1"
   },
