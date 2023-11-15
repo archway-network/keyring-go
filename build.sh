@@ -25,7 +25,7 @@ CGO_ENABLED=1 go build -v \
   -o "${OUT_DIR}"/keyring.a \
   "${SCRIPT_DIR}"/src/go
 
-cp -f "${OUT_DIR}"/keyring.h "${OUT_DIR}"/../keyring.h
+cp -f "${OUT_DIR}"/keyring.h "${SCRIPT_DIR}"/src/keyring.h
 
 # To generate a universal binary for macOS, use the following commands:
 # mkdir -p out/darwin-universal
