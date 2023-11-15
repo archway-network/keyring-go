@@ -21,23 +21,23 @@
   "gypfile": true,
   "dependencies": {
     "node-addon-api": "^7.0.0",
-    "node-gyp-build": "^4.6.0"
+    "node-gyp": "^10.0.1",
+    "node-gyp-build": "^4.6.1"
   },
   "devDependencies": {
-    "node-gyp": "^9.4.0",
     "prebuildify": "^5.0.1",
     "rimraf": "^5.0.1"
   },
   "scripts": {
     "clean": "rimraf ./build ./out",
-    "build": "prebuildify --napi --strip --preinstall=./build.sh",
-    "build:x64": "prebuildify --napi --strip --preinstall='./build.sh amd64' --arch=x64",
-    "build:arm64": "prebuildify --napi --strip --preinstall='./build.sh arm64' --arch=arm64",
+    "build": "prebuildify --napi --strip --preinstall=./build.sh --target=18.0.0",
+    "build:x64": "prebuildify --napi --strip --preinstall='./build.sh amd64' --arch=x64 --target=18.0.0",
+    "build:arm64": "prebuildify --napi --strip --preinstall='./build.sh arm64' --arch=arm64 --target=18.0.0",
     "install": "node-gyp-build",
     "test": "node --napi-modules ./test/index.js"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "os": [
     "!win32"
