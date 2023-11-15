@@ -30,9 +30,9 @@
   },
   "scripts": {
     "clean": "rimraf ./build ./out",
-    "build": "prebuildify --napi --strip --preinstall=./build.sh",
-    "build:x64": "prebuildify --napi --strip --preinstall='./build.sh amd64' --arch=x64",
-    "build:arm64": "prebuildify --napi --strip --preinstall='./build.sh arm64' --arch=arm64",
+    "build": "prebuildify --napi --strip --preinstall=./build.sh --target=16.0.0",
+    "build:x64": "prebuildify --napi --strip --preinstall='./build.sh amd64' --arch=x64 --target=16.0.0",
+    "build:arm64": "prebuildify --napi --strip --preinstall='./build.sh arm64' --arch=arm64 --target=16.0.0",
     "install": "node-gyp-build",
     "test": "node --napi-modules ./test/index.js"
   },
