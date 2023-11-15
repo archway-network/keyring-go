@@ -21,8 +21,8 @@
   "gypfile": true,
   "dependencies": {
     "node-addon-api": "^7.0.0",
-    "node-gyp": "^9.4.0",
-    "node-gyp-build": "^4.6.0"
+    "node-gyp": "^10.0.1",
+    "node-gyp-build": "^4.6.1"
   },
   "devDependencies": {
     "prebuildify": "^5.0.1",
