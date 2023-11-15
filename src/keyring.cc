@@ -1,5 +1,5 @@
 #include <napi.h>
-#include "../out/keyring.h"
+#include "keyring.h"
 
 using namespace Napi;
 
