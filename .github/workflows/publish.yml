@@ -1,9 +1,8 @@
 name: Publish package to npm
 
 on:
-  push:
-    tags:
-      - "v*"
+  release:
+    types: [published]
 
 jobs:
   build:
@@ -16,6 +15,6 @@ jobs:
           registry-url: "https://registry.npmjs.org"
       - run: npm ci
       - run: npm run build
-      - run: npm publish --access public
+      - run: npm publish --tag ${{ github.event.release.prerelease == true && 'pre' || 'latest' }} --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
