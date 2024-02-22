@@ -18,6 +18,9 @@ ARCH_DIR="${GOOS}-${GOARCH}"
 OUT_DIR="${SCRIPT_DIR}/out/${ARCH_DIR}"
 mkdir -p "${OUT_DIR}"
 
+GO111MODULE="on"
+export GO111MODULE
+
 CGO_ENABLED=1 go build -v \
   -trimpath \
   -buildmode=c-archive \
